@@ -26,21 +26,27 @@ export default {
 <style lang="less" scoped>
 @import '../styles/variables';
 @import '../styles/mixins';
+@import '../styles/animations';
 
 
-.bg {
+img.bg {
 	position: absolute;
 	top: 40px;
 	right: 40px;
 	bottom: 40px;
 	height: calc(~'100% - 80px');
+	opacity: 0;
+	animation: fade-in .6s forwards;
 }
 
-.logo {
+img.logo {
 	position: absolute;
 	width: 250px;
 	top: 40px;
 	right: 40px;
+	opacity: 0;
+	animation: fade-in .5s forwards;
+	animation-delay: 1.8s;
 }
 
 .this-is-the-dog {
@@ -52,6 +58,9 @@ export default {
 	font-weight: 700;
 	line-height: 45px;
 	color: #FFF;
+	opacity: 0;
+	animation: fade-in .4s forwards;
+	animation-delay: .8s;
 }
 
 section {
@@ -64,9 +73,41 @@ section {
 	height: 100vh;
 	background-color: #EF33A2;
 	color: #FFF;
+	transform: translateX(-100%);
+	animation: move-right .5s forwards;
+	animation-delay: .4s;
 
 	img {
 		margin-bottom: 5px;
+	}
+
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		background-color: #FFF;
+	}
+
+	&:before {
+		left: 40px;
+		top: calc(~'50% - 150px');
+		width: 4px;
+		height: 100px;
+		transform: scaleY(0);
+		transform-origin: 50% 0%;
+		animation: scale-bottom .4s forwards;
+		animation-delay: 1.6s;
+	}
+
+	&:after {
+		right: 40px;
+		bottom: 40px;
+		width: 100px;
+		height: 4px;
+		transform: scaleX(0);
+		transform-origin: 0% 50%;
+		animation: scale-right .4s forwards;
+		animation-delay: 1.6s;
 	}
 }
 
@@ -86,10 +127,17 @@ article {
 		position: relative;
 	}
 
+	img, p, a {
+		opacity: 0;
+		animation: fade-in .6s forwards;
+		animation-delay: 1.2s;
+	}
+
 	img {
+		align-self: flex-start;
 		width: 540px;
 		margin-left: -60px;
-		align-self: flex-start;
+		animation-duration: .8s;
 	}
 
 	&:before {
@@ -100,6 +148,9 @@ article {
 		bottom: 0;
 		width: 110px;
 		background-color: @color-main;
+		transform: translateY(-100%);
+		animation: move-down .6s forwards;
+		animation-delay: 1s;
 	}
 }
 
@@ -111,8 +162,8 @@ p {
 }
 
 a {
-	padding: 15px 20px;
-	padding-top: 17px;
+	padding: 16px 20px;
+	padding-top: 19px;
 	font-size: 12px;
 	text-transform: uppercase;
 	border: 2px solid #FFF;
@@ -121,7 +172,7 @@ a {
 	&:hover {
 		background-color: #FFF;
 		color: @color-main;
-	} 
+	}
 }
 
 </style>

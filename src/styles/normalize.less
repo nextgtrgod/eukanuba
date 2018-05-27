@@ -10,6 +10,17 @@ html, body {
 	min-width: 320px;
 }
 
+html {
+	height: 100%;
+	overflow: hidden;
+}
+
+body {
+	height: 100%;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
 ul, li {
 	padding: 0;
 	margin: 0;
@@ -29,13 +40,6 @@ button {
 	outline: none;
 }
 
-// html {
-// 	overflow: hidden;
-// 	height: 100%;
-// }
-
-// body {
-// 	overflow: auto;
-// 	height: 100%;
-// 	-webkit-overflow-scrolling: touch;
-// }
+img {
+	backface-visibility: hidden;
+}

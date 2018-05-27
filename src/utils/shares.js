@@ -1,4 +1,4 @@
-const baseUrl = 'http://100letbd.afisha.ru'
+const baseUrl = 'http://eukanuba.afisha.ru'
 
 export default {
 	computed: {
