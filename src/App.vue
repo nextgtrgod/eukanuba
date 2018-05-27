@@ -23,6 +23,7 @@ export default {
 
 #app {
 	max-width: 100%;
+	font-family: @font-gotham;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	overflow: hidden;
