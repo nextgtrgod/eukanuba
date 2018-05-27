@@ -1,31 +1,40 @@
-<script>
-import Events from '@/events'
-
-export default {
-	name: 'Page',
-}
-</script>
-
-
 <template>
 <main>
 	<img class="bg" src="../assets/images/main-page-bg.jpg">
-	<img class="logo" src="../assets/images/logo-eukanuba.svg">
+	<a
+		class="logo"
+		@click="linkClick('https://www.eukanuba.ru/')"
+		href="https://www.eukanuba.ru/"
+		target="_blank"
+	>
+		<img src="../assets/images/logo-eukanuba.svg">	
+	</a>
 	<span class="this-is-the-dog">Это собака Eukanuba</span>
 	<section>
 		<article>
 			<img src="../assets/images/main-page-title.svg">
-			<p> Жизнь в большом городе часто не оставляют времени на спорт и полезные для здоровья активности. Но, если у вас есть собака, вы сможете поддерживать отличную физическую форму вместе с вашим четвероногим тренером каждый день. Ведь любая прогулка  - это способ двигаться больше и дольше и не останавливаться на достигнутом. Главное - подобрать ту программу тренировок, которая подойдет вашей собаке и лично вам.</p>
-			<router-link to="/test">Подобрать программу</router-link>
+			<p>Жизнь в большом городе часто не оставляют времени на спорт и полезные для здоровья активности. Но, если у вас есть собака, вы сможете поддерживать отличную физическую форму вместе с вашим четвероногим тренером каждый день. Ведь любая прогулка  - это способ двигаться больше и дольше и не останавливаться на достигнутом. Главное - подобрать ту программу тренировок, которая подойдет вашей собаке и лично вам.</p>
+			<router-link class="button" to="/interview">Подобрать программу</router-link>
 		</article>
 	</section>
 </main>
 </template>
 
 
+<script>
+import Events from '@/events'
+
+export default {
+	name: 'MainPage',
+	methods: {
+		linkClick: url => ga('send', 'event', 'link', url),
+	},
+}
+</script>
+
+
 <style lang="less" scoped>
 @import '../styles/variables';
-@import '../styles/mixins';
 @import '../styles/animations';
 
 
@@ -39,7 +48,7 @@ img.bg {
 	animation: fade-in .6s forwards;
 }
 
-img.logo {
+a.logo {
 	position: absolute;
 	width: 250px;
 	top: 40px;
@@ -76,6 +85,10 @@ section {
 	transform: translateX(-100%);
 	animation: move-right .5s forwards;
 	animation-delay: .4s;
+
+	// @media (min-width: 1200px) {
+	// 	width: 45%;
+	// }
 
 	img {
 		margin-bottom: 5px;
@@ -161,7 +174,7 @@ p {
 	line-height: 24px;
 }
 
-a {
+a.button {
 	padding: 16px 20px;
 	padding-top: 19px;
 	font-size: 12px;

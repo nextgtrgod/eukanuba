@@ -11,13 +11,22 @@ button.toggle-shares {
 	z-index: 1;
 
 	svg {
+		stroke: #FFF;
 		fill: transparent;
-		transition: fill .2s;
+		transition: all .2s;
+
+		&.invert {
+			stroke: #000;
+		}
 	}
 
 	&:hover {
 		svg {
 			fill: #FFF;
+
+			&.invert {
+				fill: #000;
+			}
 		}
 	}
 }
@@ -61,7 +70,7 @@ button.toggle-shares {
 		transition: opacity .2s, transform .2s;
 		pointer-events: none;
 
-		img {
+		svg {
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -69,8 +78,12 @@ button.toggle-shares {
 			bottom: 0;
 			margin: auto;
 			max-height: 100%;
-			user-select: none;
-			pointer-events: none;
+			fill: #FFF;
+			transition: fill .2s;
+
+			&.invert {
+				fill: #000;
+			}
 		}
 	}
 }
