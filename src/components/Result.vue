@@ -6,8 +6,20 @@
 
 
 <script>
+import Events from '@/events'
+import { mapState } from 'vuex'
+import results from '@/data/results'
+
 export default {
 	name: 'ResultPage',
+	computed: {
+		...mapState({
+			selected: state => state.selected
+		}),
+	},
+	created() {
+
+	},
 }
 </script>
 

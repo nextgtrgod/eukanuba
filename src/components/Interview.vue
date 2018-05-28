@@ -12,13 +12,29 @@
 			:next="moveNext"
 			v-model="selected[key]"
 		/>
+
+		<ul class="dots">
+			<li
+				v-for="(key, index) in keysOf(selected)"
+				:key="index"
+				:class="{
+					selected: currentQuestion === key,
+					active: selected[keysOf(selected)[index]],
+				}"
+				@click="skipQuestion(index)"
+			>
+				<span/>
+			</li>
+		</ul>
 	</div>
 </section>
 </template>
 
 
 <script>
-import keys from '@/utils/keys'
+import Events from '@/events'
+import { mapState } from 'vuex'
+import keysOf from '@/utils/keysOf'
 import Question from '@/components/Question';
 import options from '@/data/options'
 
@@ -30,27 +46,29 @@ export default {
 	data() {
 		return {
 			options,
-			selected: { },
-			currentQuestion: '',
+			currentIndex: 0,
 		}
 	},
-	created() {
-		Object.keys(this.options).map(key => {
-			this.selected[key] = ''
-		})
-
-		this.currentQuestion = Object.keys(this.options)[0]
-
-		console.dir(this.selected)
+	computed: {
+		...mapState({
+			selected: state => state.selected
+		}),
+		currentQuestion() {
+			return keysOf(this.selected)[this.currentIndex]
+		}
 	},
 	methods: {
 		moveNext() {
-			let index = keys(this.selected).indexOf(this.currentQuestion) + 1
+			if (this.currentIndex === keysOf(this.selected).length - 1) {
+				this.$router.push({ name: 'Result' })
+			}
 
-			if (index > keys(this.selected).length - 1) index = keys(this.selected).length - 1
-
-			this.currentQuestion = keys(this.selected)[index]
-		}
+			this.currentIndex++
+		},
+		skipQuestion(index) {
+			this.selected[keysOf(this.selected)[index]].length && (this.currentIndex = index)
+		},
+		keysOf: obj => keysOf(obj),
 	},
 }
 </script>
@@ -93,6 +111,50 @@ export default {
 		font-family: @font-gotham;
 		font-size: 16px;
 		font-weight: 400;
+	}
+}
+
+ul.dots {
+	margin-top: 35px;
+
+	li {
+		display: inline-block;
+		width: 22px;
+		height: 22px;
+		padding: 5px;
+		box-sizing: border-box;
+
+		span {
+			display: block;
+			width: 10px;
+			height: 10px;
+			border: 1px solid @color-main;
+			border-radius: 50%;
+			opacity: .5;
+			transition: all .2s;
+		}
+
+		&.active,
+		&.selected {
+			cursor: pointer;
+			span {
+				background-color: @color-main;
+			}
+		}
+
+		&.active {
+			&:hover {
+				span {
+					opacity: .75;
+				}
+			}
+		}
+
+		&.selected {
+			span {
+				opacity: 1 !important;
+			}
+		}
 	}
 }
 

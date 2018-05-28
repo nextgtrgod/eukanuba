@@ -2,7 +2,31 @@
 <div class="question" :class="{ answered }">
 	<h3>{{ about }}</h3>
 	<h2>{{ locale[type] }}</h2>
-	<div class="answers" :data-count="options.length">
+
+	<div v-if="type === 'gender'" class="answers gender">
+		<button
+			class="checkbox"
+			:class="{ selected: selected === 'мужской' }"
+			@click="select('мужской')"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41.1 78.7">
+  				<path d="M20 33.5c8.6 0 14.6.4 17.6.7-1.1 3.6-4 11.2-8 20.4-4.2 9.8-7.3 16-9.1 19.1-1.9-3.4-5.2-10.1-9.1-19.1-4-9.3-6.9-16.9-8-20.5 2.8-.3 8.2-.6 16.6-.6m0-3C10.2 30.5.6 31 0 32c-1.2 2.1 17.8 46.6 20.5 46.6 2.7 0 21.7-44.7 20.5-46.6-.5-1-10.8-1.5-21-1.5zM20.6 3c5.6 0 10.2 4.6 10.2 10.2s-4.6 10.2-10.2 10.2-10.2-4.6-10.2-10.2S15 3 20.6 3m0-3C13.3 0 7.4 5.9 7.4 13.2s5.9 13.2 13.2 13.2 13.2-5.9 13.2-13.2S27.8 0 20.6 0z"/>
+			</svg>
+			<span/>
+		</button>
+		<button
+			class="checkbox"
+			:class="{ selected: selected === 'женский' }"
+			@click="select('женский')"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41.1 78.7">
+				<path d="M20.6 35.4c1.9 3.4 5.2 10.1 9.1 19.1 4 9.3 6.9 16.9 8 20.5-2.7.3-8.1.7-16.6.7-8.6 0-14.6-.4-17.6-.7 1.1-3.6 4-11.2 8-20.4 4.2-9.9 7.3-16.1 9.1-19.2m0-4.9C17.9 30.5-1.1 75.2.1 77.1c.6 1 10.9 1.5 21 1.5 9.8 0 19.4-.5 20-1.5 1.1-2.1-17.8-46.6-20.5-46.6zm0-27.5c5.6 0 10.2 4.6 10.2 10.2s-4.6 10.2-10.2 10.2-10.2-4.6-10.2-10.2S15 3 20.6 3m0-3C13.3 0 7.4 5.9 7.4 13.2s5.9 13.2 13.2 13.2 13.2-5.9 13.2-13.2S27.8 0 20.6 0z"/>
+			</svg>
+			<span/>
+		</button>
+	</div>
+
+	<div v-else class="answers" :data-count="options.length">
 		<button
 			v-for="(option, index) in options"
 			:key="index"
@@ -14,13 +38,15 @@
 			<p :data-description="description[option]">{{ option }}</p>
 		</button>
 	</div>
-	<button class="next" @click="next">Далее</button>
+	<button class="next" @click="next" ref="next">
+		Далее
+	</button>
 </div>
 </template>
 
 
 <script>
-import keys from '@/utils/keys'
+import keysOf from '@/utils/keysOf'
 import locale from '@/data/locale'
 import description from '@/data/description'
 
@@ -57,6 +83,8 @@ export default {
 		this.about = (this.type === 'old') || (this.type === 'body') || (this.type === 'size')
 			? 'о вашей собаке'
 			: 'о вас'
+		
+		this.selected.length && (this.answered = true)
 	},
 	methods: {
 		select(value) {
@@ -70,8 +98,9 @@ export default {
 		selected(value) {
 			this.$emit('input', value.trim())
 
-			if (this.selected.length) this.answered = true
-		}
+			value.length && (this.answered = true)
+			this.$refs['next'].focus()
+		},
 	},
 }
 </script>
@@ -161,7 +190,7 @@ h3 {
 
 	&[data-count="4"] {
 		max-width: 500px;
-		margin: 40px auto;
+		margin: 45px auto;
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
@@ -171,6 +200,26 @@ h3 {
 		button {
 			flex: 1 0 50%;
 			justify-content: flex-start;
+		}
+	}
+
+	&.gender {
+		flex-direction: row;
+		padding-left: 0;
+
+		button.checkbox {
+			min-width: 50px;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+
+			svg {
+				margin-bottom: 10px;
+			}
+
+			span {
+				margin: 0;
+			}
 		}
 	}
 }
@@ -216,6 +265,10 @@ button.checkbox {
 		background-color: #FFF;
 		transition: background-color .2s;
 		box-shadow: inset 0 0 0 3px #FFF;
+	}
+
+	svg {
+		height: 40px;
 	}
 }
 
