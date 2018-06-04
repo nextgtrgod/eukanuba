@@ -235,8 +235,15 @@ button.checkbox {
 	font-weight: 400;
 	color: #000;
 
-	&:hover,
 	&.selected {
+		span {
+			background-color: @color-main;
+			box-shadow: inset 0 0 0 3px #FFF;
+			transition: background-color .2s, box-shadow .2s;
+		}
+	}
+
+	&:hover {
 		span {
 			background-color: @color-main;
 		}
@@ -264,7 +271,7 @@ button.checkbox {
 		border-radius: 50%;
 		background-color: #FFF;
 		transition: background-color .2s;
-		box-shadow: inset 0 0 0 3px #FFF;
+		box-shadow: inset 0 0 0 5px #FFF;
 	}
 
 	svg {

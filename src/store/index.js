@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import getters from './getters'
 import actions from './actions'
 import mutations from './mutations'
+import Events from '@/events'
 
 import options from '@/data/options'
 
@@ -23,5 +24,11 @@ const store = new Vuex.Store({
 	actions,
 	mutations,
 })
+
+store.watch(
+	state => state.selected,
+	() => Events.$emit('state-update', { state }),
+	{ deep: true }
+)
 
 export default store

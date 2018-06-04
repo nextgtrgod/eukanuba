@@ -5,7 +5,7 @@
 		<p>Выберите параметры, которые помогут нам подобрать лучшую программу для вас и вашей собаки</p>
 		<question
 			v-if="currentQuestion === key"
-			v-for="(value, key) in options"
+			v-for="(value, key) in filteredOptions"
 			:key="key"
 			:options="value"
 			:type="key"
@@ -15,11 +15,12 @@
 
 		<ul class="dots">
 			<li
-				v-for="(key, index) in keysOf(selected)"
+				v-for="(key, index) in keysOf(filteredOptions)"
 				:key="index"
 				:class="{
 					selected: currentQuestion === key,
-					active: selected[keysOf(selected)[index]],
+					active: selected[key],
+					hidden: hidden.includes(key)
 				}"
 				@click="skipQuestion(index)"
 			>
@@ -47,23 +48,54 @@ export default {
 		return {
 			options,
 			currentIndex: 0,
+			hidden: [],
 		}
+	},
+	created() {
+		keysOf(this.selected).map(key => this.selected[key] = '') // drop selection
+
+		Events.$on('state-update', ({ state }) => {
+			// skip 'телосложение'
+			if (state.selected['old'] === 'щенки') {
+				if (!this.hidden.includes('body')) {
+					this.hidden.push('body')
+					this.selected['body'] = 'атлетичное'
+				}
+			}
+			else {
+				this.hidden = []
+				// this.selected['body'] = ''
+			}
+		})
 	},
 	computed: {
 		...mapState({
 			selected: state => state.selected
 		}),
 		currentQuestion() {
-			return keysOf(this.selected)[this.currentIndex]
-		}
+			return keysOf(this.filteredOptions)[this.currentIndex]
+		},
+		filteredOptions() {
+			let opts = {}
+
+			keysOf(this.options).map(key => {
+				if (!this.hidden.includes(key)) {
+					opts[key] = this.options[key]
+				}
+			})
+
+			return opts
+		},
 	},
 	methods: {
 		moveNext() {
-			if (this.currentIndex === keysOf(this.selected).length - 1) {
-				this.$router.push({ name: 'Result' })
+			if (this.currentIndex === keysOf(this.filteredOptions).length - 1) {
+				if (!Object.values(this.selected).includes('')) {
+					this.$router.push({ name: 'Result' })
+				}
+			} else {
+				this.currentIndex++
 			}
-
-			this.currentIndex++
 		},
 		skipQuestion(index) {
 			this.selected[keysOf(this.selected)[index]].length && (this.currentIndex = index)
@@ -154,6 +186,10 @@ ul.dots {
 			span {
 				opacity: 1 !important;
 			}
+		}
+
+		&.hidden {
+			display: none;
 		}
 	}
 }
