@@ -4,6 +4,7 @@ import Store from '@/store'
 import MainPage from '@/components'
 import InterviewPage from '@/components/Interview'
 import ResultPage from '@/components/Result'
+import PlacesPage from '@/components/Places'
 
 import keysOf from '@/utils/keysOf'
 
@@ -24,6 +25,11 @@ let routes = [
 		path: '/result',
 		name: 'Result',
 		component: ResultPage
+	},
+	{
+		path: '/places',
+		name: 'Places',
+		component: PlacesPage
 	}
 ]
 

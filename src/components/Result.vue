@@ -19,7 +19,6 @@
 				<div>
 					<h1>20</h1>
 					<h2>минут</h2>
-					<h3>2 раза в день</h3>
 				</div>
 			</div>
 
@@ -28,21 +27,15 @@
 				<ul>
 					<li>
 						<span class="icon">
-							<img src="../assets/images/ball.svg">
+							<img src="../assets/images/games/ball.svg">
 						</span>
 						<span class="caption">Игра в мяч</span>
 					</li>
 					<li>
 						<span class="icon">
-							<img src="../assets/images/aport.svg">
+							<img src="../assets/images/games/aport.svg">
 						</span>
 						<span class="caption">Игры "апорт"</span>
-					</li>
-					<li>
-						<span class="icon">
-							<img src="../assets/images/run.svg">
-						</span>
-						<span class="caption">Бег с собакой</span>
 					</li>
 				</ul>
 			</div>
@@ -95,8 +88,30 @@
 	<section class="places">
 		<h2>Рекомендуем вам прогуляться с вашим питомцем в:</h2>
 		<ul>
-			<li>
+			<li
+				v-for="place in city"
+				:key="place.id"
+			>
+				<span class="image-wrap">
+					<img :src="getPlaceImage(place.id)">
+				</span>
+				<span class="text-wrap">
+					<h2>{{ place.name }}</h2>
 
+					<v-bar v-if="device === 'desktop'" wrapper="v-bar">
+						<p v-html="place.description"/>
+					</v-bar>
+					<p v-else v-html="place.description"/>
+
+					<span class="link-wrap">
+						<span class="icon">
+							<img src="../assets/images/marker.svg">
+						</span>
+						<a :href="getMapLink(place.latLng)" target="_blank">
+							{{ place.address }}
+						</a>
+					</span>
+				</span>
 			</li>
 		</ul>
 	</section>
@@ -105,21 +120,48 @@
 
 
 <script>
+import VBar from 'v-bar'
 import Events from '@/events'
 import { mapState } from 'vuex'
-import results from '@/data/results'
+import man from '@/data/man'
+import dog from '@/data/dog'
 import places from '@/data/places'
 
 export default {
 	name: 'ResultPage',
-	computed: {
-		...mapState({
-			selected: state => state.selected
-		}),
+	components: {
+		VBar,
+	},
+	data() {
+		return {
+			dog,
+			man,
+			places,
+		}
 	},
 	created() {
 		console.log(this.selected)
 	},
+	methods: {
+		getMapLink: latLng => `https://www.google.com/maps/?q=${latLng[0]},${latLng[1]}`,
+		getPlaceImage: id => {
+			try {
+				return require(`@/assets/images/places/${id}.jpg`)
+			} catch (e) {
+				console.log(e)
+				return 'http://via.placeholder.com/400x260'
+			}
+		},
+	},
+	computed: {
+		...mapState({
+			selected: state => state.selected
+		}),
+		city() {
+			return this.places[this.selected.city]
+		},
+	},
+
 }
 </script>
 
@@ -235,7 +277,7 @@ h3 {
 
 		@media (min-width: 960px) {
 			display: block;
-			padding-top: 53.75%;
+			padding-top: 64.2857%;
 		}
 	}
 
@@ -396,6 +438,8 @@ h3 {
 .bloggers {
 	height: 200px;
 	background-color: #052046;
+	background-image: url('../assets/images/bloggers/bg.jpg');
+	background-size: cover;
 }
 
 
@@ -515,13 +559,96 @@ h3 {
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		width: 100%;
+		max-width: 750px;
+		margin: auto;
 
 		li {
-			width: 750px;
-			height: 260px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
 			margin-bottom: 40px;
-			border: 1px solid #FFF;
 		}
+
+		span.image-wrap {
+			width: 380px;
+			height: 260px;
+			flex: 0 0 380px;
+			margin-right: 40px;
+			overflow: hidden;
+
+			img {
+				position: relative;
+				width: 100%;
+				height: auto;
+			}
+		}
+
+		span.text-wrap {
+			flex-basis: 100%;
+		}
+
+		h2 {
+			margin-top: 0;
+			margin-bottom: 10px;
+			font-family: @font-gotham;
+			text-align: left;
+			text-transform: none;
+		}
+
+		.v-bar {
+			display: block;
+			width: 100%;
+			height: 4 * 24px;
+			margin-bottom: 25px;
+			padding: 5px 0;
+			border-bottom: 1px dashed fade(#FFF, 50%);
+		}
+		
+		p {
+			// width: calc(~'100% - 30px');
+			margin: 0;
+			font-size: 16px;
+			line-height: 24px;
+			padding-right: 40px !important;
+		}
+
+		.link-wrap {
+			display: inline-flex;
+			align-items: center;
+			justify-content: flex-start;
+
+			.icon {
+				position: relative;
+				flex-shrink: 0;
+				width: 50px;
+				height: 50px;
+				margin-right: 10px;
+				background-color: #ef31a2;
+				border-radius: 50%;
+
+				img {
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					margin: auto;
+					width: 24px;
+				}
+			}
+
+			a {
+				font-size: 14px;
+				line-height: 21px;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+
 	}
 }
 
