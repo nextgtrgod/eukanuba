@@ -538,7 +538,7 @@ h3 {
 	}
 
 	.image-wrap {
-		padding-top: 42.946%;
+		padding-top: 62.5%;
 	}
 }
 
