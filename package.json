@@ -13,6 +13,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "es6-tween": "^5.1.0",
     "kuker-emitters": "^6.7.3",
+    "v-bar": "^3.0.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
