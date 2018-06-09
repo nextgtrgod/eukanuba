@@ -17,25 +17,22 @@
 			<div class="time">
 				<h2>Оптимальная<br>продолжительность<br>прогулки для вашей<br>собаки:</h2>
 				<div>
-					<h1>20</h1>
+					<h1>{{ time[selected.time] }}</h1>
 					<h2>минут</h2>
 				</div>
 			</div>
 
-			<div class="activities">
+			<div class="games">
 				<h3>Наиболее подходящие активности<br>во время прогулки</h3>
 				<ul>
-					<li>
+					<li
+						v-for="(action, index) in dogInfo.actions"
+						:key="index"
+					>
 						<span class="icon">
-							<img src="../assets/images/games/ball.svg">
+							<img :src="getGameIcon(action)">
 						</span>
-						<span class="caption">Игра в мяч</span>
-					</li>
-					<li>
-						<span class="icon">
-							<img src="../assets/images/games/aport.svg">
-						</span>
-						<span class="caption">Игры "апорт"</span>
+						<span class="caption">{{ games[action] }}</span>
 					</li>
 				</ul>
 			</div>
@@ -123,8 +120,10 @@
 import VBar from 'v-bar'
 import Events from '@/events'
 import { mapState } from 'vuex'
+import time from '@/data/time'
 import man from '@/data/man'
 import dog from '@/data/dog'
+import games from '@/data/games'
 import places from '@/data/places'
 
 export default {
@@ -134,9 +133,11 @@ export default {
 	},
 	data() {
 		return {
+			time,
 			dog,
 			man,
 			places,
+			games,
 		}
 	},
 	created() {
@@ -152,6 +153,14 @@ export default {
 				return 'http://via.placeholder.com/400x260'
 			}
 		},
+		getGameIcon(name) {
+			try {
+				return require(`@/assets/images/games/${name}.svg`)
+			} catch (e) {
+				console.log(e)
+				return require (`@/assets/images/games/dog.svg`)
+			}
+		},
 	},
 	computed: {
 		...mapState({
@@ -159,6 +168,14 @@ export default {
 		}),
 		city() {
 			return this.places[this.selected.city]
+		},
+		dogInfo() {
+			let { old, body, size, time } = this.selected
+			return this.dog[body][time][size][old]
+		},
+		manInfo() {
+			let { gender, age, place, time } = this.selected
+			return this.man[gender][age][place][time]
 		},
 	},
 
@@ -356,38 +373,60 @@ h3 {
 		}
 	}
 
-	.activities {
+	.games {
 		padding: 20px 35px;
 		padding-top: 25px;
 
 		h3 {
 			margin: 0 auto;
-			margin-bottom: 10px;
+			margin-bottom: 0px;
 			text-align: center;
 
 			@media (min-width: 960px) {
 				margin-left: 0;
-				margin-bottom: 20px;
+				margin-bottom: 30px;
 				text-align: left;
 			}
 		}
 
 		ul {
 			display: flex;
-			align-items: flex-start;
+			flex-wrap: wrap;
+			align-items: center;
 			justify-content: center;
 
 			li {
+				width: 100%;
 				display: inline-flex;
-				flex-direction: column;
 				align-items: center;
-				justify-content: center;
-				margin: 0 30px;
+				justify-content: flex-start;
+				margin-bottom: 20px;
+
+				&:nth-child(1) {
+					.icon {
+						margin-right: 20px;
+					}
+				}
+
+				&:nth-child(2) {
+					flex-direction: row-reverse;
+
+					.icon {
+						margin-left: 10px;
+					}
+				}
+
+				&:last-child {
+					margin-bottom: 0;
+				}
 
 				.icon {
+					flex: 0 0 auto;
 					position: relative;
-					width: 110px;
-					height: 110px;
+					width: 120px;
+					height: 120px;
+					background-color: #d7dbe1;
+					border-radius: 50%;
 
 					img {
 						position: absolute;
@@ -396,30 +435,15 @@ h3 {
 						right: 0;
 						bottom: 0;
 						margin: auto;
-						width: 100%;
+						width: 80px;
 						height: auto;
-						max-height: 60px;
-					}
-
-					&:before {
-						content: '';
-						position: absolute;
-						top: 0;
-						left: 0;
-						right: 0;
-						bottom: 0;
-						width: 90px;
-						height: 90px;
-						margin: auto;
-						border-radius: 50%;
-						background-color: #d7dbe1;
 					}
 				}
 
 				.caption {
-					text-align: center;
+					max-width: 320px;
 					font-size: 16px;
-					line-height: 20px;
+					line-height: 25px;
 				}
 			}
 		}

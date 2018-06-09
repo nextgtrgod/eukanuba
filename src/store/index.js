@@ -14,13 +14,13 @@ let selected = {}
 Object.keys(options).map(key => selected[key] = '')
 
 selected = {
-	old: 'взрослые',
+	old: 'щенки',
 	body: 'атлетичное',
-	size: 'средний',
+	size: 'миниатюрный',
 	gender: 'мужской',
-	age: '30+',
+	age: '18-24',
 	place: 'парк',
-	time: '40 мин. и более',
+	time: 'до 20 мин.',
 	city: 'москва',
 }
 

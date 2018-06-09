@@ -1,8 +1,8 @@
 <template>
 <section id="interview">
 	<img class="logo" src="../assets/images/logo-eukanuba.svg">
-	<div class="wrapper">
-		<p>Выберите параметры, которые помогут нам подобрать лучшую программу для вас и вашей собаки</p>
+	<div class="wrap">
+		<p v-html="'Выберите параметры, которые помогут нам подобрать лучшую программу для вас и&nbsp;вашей собаки'"/>
 		<question
 			v-if="currentQuestion === key"
 			v-for="(value, key) in filteredOptions"
@@ -124,7 +124,7 @@ export default {
 	z-index: 1;
 }
 
-.wrapper {
+.wrap {
 	position: absolute;
 	top: 60px;
 	left: 80px;
@@ -138,11 +138,19 @@ export default {
 	background-color: #E6E9EC;
 
 	p {
-		margin: 0;
+		display: none;
+		margin-top: 20px;
 		margin-bottom: 35px;
+		padding: 0 40px;
 		font-family: @font-gotham;
 		font-size: 16px;
 		font-weight: 400;
+		line-height: 21px;
+		text-align: center;
+
+		@media (min-width: 960px) {
+			display: block;
+		} 
 	}
 }
 
