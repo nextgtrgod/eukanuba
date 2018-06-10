@@ -12,12 +12,22 @@ export default {
 	name: 'App',
 	created() {
 		ga('send', 'event', 'page', 'loaded')
+
+		window.addEventListener('resize', this.checkDevice)
+	},
+	methods: {
+		checkDevice() {
+			this.device = (window.innerWidth >= 960) ? 'desktop' : 'mobile'
+		}
 	},
 	watch: {
 		'$route'(to, from) {
 			ga('send', 'event', 'link', to.name.toLowerCase())
 		}
 	},
+	beforeDestroy() {
+		window.removeEventListener('resize', this.checkDevice)
+	}
 }
 </script>
 
