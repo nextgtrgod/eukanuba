@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+HOST='j08.famp.rambler.ru'
+PORT=4321
+USER='coach'
+PASSWORD='hajBeug5'
+
+LOCAL='./dist'
+REMOTE='/www'
+
+echo "Deploy started"
+
+lftp ftp://$USER:$PASSWORD@$HOST -p $PORT <<EOF
+cd $REMOTE
+ls
+rm -r .
+put -a .htaccess
+mirror -R $LOCAL $REMOTE
+exit
+EOF
+
+echo "Deploy finished"
