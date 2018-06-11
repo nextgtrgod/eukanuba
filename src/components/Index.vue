@@ -26,7 +26,58 @@
 		<img class="title" src="../assets/images/main-page-title.svg">
 		<p v-html="'Любую проглуку c&nbsp;собакой можно превратить в&nbsp;отличную тренировку. Ведь ваша собака&nbsp;&mdash; это ваш персональный тренер, который своей энергией и&nbsp;силой поможет вам тренироваться каждый день. А&nbsp;мы&nbsp;расскажем как и&nbsp;где это лучше всего делать, и&nbsp;как поддержать вашего питомца на&nbsp;пике формы!'"/>
 		
-		<div class="cards">
+		<div v-if="device === 'mobile'" class="js_slider" ref="carousel">
+
+			<ul class="js_dots" ref="js_dots">
+				<li/>
+				<li/>
+				<li/>
+				<li/>
+			</ul>
+
+			<div class="js_frame">
+				<ul class="js_slides">
+					<li class="js_slide">
+						<span class="img-wrap">
+							<img src="../assets/images/card-1.svg">
+						</span>
+						<span class="text">
+							Расскажите о себе<br>и своей собаке
+							<router-link to="/interview">Узнать</router-link>
+						</span>
+					</li>
+					<li class="js_slide">
+						<span class="img-wrap">
+							<img src="../assets/images/card-2.svg">
+						</span>
+						<span class="text">
+							Подберите подходящие виды активности для<br>вашей собаки и вас
+							<router-link to="/interview">Узнать</router-link>
+						</span>
+					</li>
+					<li class="js_slide">
+						<span class="img-wrap">
+							<img src="../assets/images/card-3.svg">
+						</span>
+						<span class="text">
+							Выберите места для<br>энергичных прогулок
+							<router-link to="/places">Узнать</router-link>
+						</span>
+					</li>
+					<li class="js_slide">
+						<span class="img-wrap">
+							<img src="../assets/images/card-4.svg">
+						</span>
+						<span class="text">
+							Как популярные блогеры активно проводят время со своими питомцами
+							<a href="https://google.com">Узнать</a>
+						</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div v-if="device === 'desktop'" class="cards">
 			<router-link to="/interview">
 				<span class="img-wrap">
 					<img src="../assets/images/card-1.svg">
@@ -95,6 +146,7 @@
 
 
 <script>
+import { lory } from 'lory.js'
 import Events from '@/events'
 import shareMixin from '@/utils/shares'
 
@@ -107,6 +159,54 @@ export default {
 		return {
 			sharesVisible: false,
 		}
+	},
+	mounted() {
+		let carousel = this.$refs['carousel']
+
+		// handle dots
+        let dotCount = 4
+        let dotContainer = this.$refs['js_dots']
+		let dotListItem = [...this.$refs['js_dots'].querySelectorAll('li')]
+
+		console.log(dotCount)
+
+        function handleDotEvent(e) {
+            if (e.type === 'before.lory.init') {
+            	dotListItem[0].classList.add('active');
+			}
+
+            if (e.type === 'after.lory.init') {
+				for (let i = 0; i < dotCount; i++) {
+					dotListItem[i].addEventListener('click', e => {
+						console.log(i)
+						dot_navigation_slider.slideTo(i)
+					})
+             	}
+			}
+
+            if (e.type === 'after.lory.slide') {
+				for (let i = 0; i < dotCount; i++) {
+					dotListItem[i].classList.remove('active');
+				}
+              	dotListItem[e.detail.currentSlide].classList.add('active');
+			}
+
+            if (e.type === 'on.lory.resize') {
+                for (let i = 0, len = dotListItem.length; i < len; i++) {
+                    dotListItem[i].classList.remove('active');
+                }
+                dotListItem[0].classList.add('active');
+            }
+		}
+
+        carousel.addEventListener('before.lory.init', handleDotEvent);
+        carousel.addEventListener('after.lory.init', handleDotEvent);
+        carousel.addEventListener('after.lory.slide', handleDotEvent);
+		carousel.addEventListener('on.lory.resize', handleDotEvent);
+
+		var dot_navigation_slider = lory(carousel, {
+            enableMouseEvents: true
+		})
 	},
 	methods: {
 		linkClick: url => ga('send', 'event', 'link', url),
@@ -126,28 +226,39 @@ main {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 40px;
+	padding: 20px;
 	color: #FFF;
 	text-align: center;
 	box-sizing: border-box;
 	opacity: 0;
 	animation: fade-in .4s forwards;
+	overflow: hidden;
+
+	@media (min-width: 960px) {
+		padding: 40px;
+		overflow: visible;
+	}
 }
 
 .inner {
 	position: relative;
 	width: 100%;
 	height: 100%;
-	min-height: calc(~'100vh - 80px');
+	min-height: calc(~'100vh - 40px');
 	display: inline-flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-image: url('../assets/images/main-page-bg-new.jpg');
+	background-image: url('../assets/images/bg-mobile.jpg');
 	background-size: cover;
 	background-color: @color-main;
 	box-sizing: border-box;
 	// overflow: hidden;
+
+	@media (min-width: 960px) {
+		min-height: calc(~'100vh - 80px');
+		background-image: url('../assets/images/main-page-bg-new.jpg');
+	}
 
 	&:before {
 		content: '';
@@ -163,11 +274,21 @@ main {
 	.toggle-shares {
 		position: absolute;
 		z-index: 3;
+
+		@media (max-width: 959px) {
+			left: 20px;
+			bottom: 20px;
+		}
 	}
 
 	.shares {
 		position: absolute;
 		z-index: 3;
+
+		@media (max-width: 959px) {
+			left: 60px;
+			bottom: 23px;
+		}
 	}
 }
 
@@ -183,39 +304,191 @@ main {
 
 a#logo-afisha {
 	position: absolute;
-	top: 20px;
-	left: 30px;
+	top: 10px;
+	left: 20px;
 	display: block;
 	width: 110px;
 	z-index: 2;
+
+	@media (min-width: 960px) {
+		top: 20px;
+		left: 30px;
+	}
 }
 
 a#logo-eukanuba {
+	display: none !important;
 	position: absolute;
-	top: 20px;
-	right: -40px;
+	top: 0;
+	right: -80px;
 	display: block;
 	width: 250px;
 	z-index: 2;
+
+	@media (min-width: 480px) {
+		display: block !important;
+	}
+
+	@media (min-width: 960px) {
+		top: 20px;
+		right: -40px;
+	}
 }
 
 p {
 	position: relative;
 	max-width: 685px;
 	margin-top: 40px;
-	margin-bottom: 30px;
+	margin-bottom: 0;
 	padding: 0 20px;
+	text-align: left;
 	font-family: @font-gotham;
 	font-size: 16px;
 	line-height: 24px;
 	z-index: 2;
+
+	@media (min-width: 960px) {
+		margin-bottom: 30px;
+		text-align: center;
+	}
 }
 
 img.title {
 	position: relative;
-	margin-top: 90px;
+	margin-top: 60px;
 	max-width: 540px;
 	z-index: 2;
+
+	@media (min-width: 960px) {
+		margin-top: 90px;
+	}
+}
+
+
+// carousel
+
+.js_slider {
+	position: relative;
+	text-align: left;
+	margin-bottom: 90px;
+	z-index: 1;
+}
+
+.js_frame {
+	position: relative;
+	width: calc(~'100vw - 40px');
+	overflow: hidden;
+	white-space: nowrap;
+	box-sizing: border-box;
+}
+
+ul.js_dots {
+	position: absolute;
+	bottom: -30px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	z-index: 2;
+
+	li {
+		width: 10px;
+		height: 10px;
+		margin-right: 15px;
+		background-color: #FFF;
+		border-radius: 50%;
+		opacity: .5;
+		transition: opacity .2s;
+		cursor: pointer;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		&.active {
+			opacity: 1;
+		}
+	}
+}
+
+ul.js_slides {
+	display: inline-flex;
+	align-items: stretch;
+	justify-content: center;
+	z-index: 1;
+}
+
+li.js_slide {
+	flex: 1 0 auto;
+	position: relative;
+	width: calc(~'100vw - 40px');
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-between;
+	white-space: initial;
+	box-sizing: border-box;
+
+	a {
+		&:hover {
+			&>* {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	span {
+		display: block;
+	}
+
+	.img-wrap {
+		flex-shrink: 0;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 60px;
+		height: 100px;
+		margin-left: 20px;
+		margin-right: 10px;
+		overflow: visible;
+
+		@media (min-width: 480px) {
+			width: 90px
+		}
+
+		img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			// right: 0;
+			bottom: 0;
+			margin: auto;
+			width: 80%;
+		}
+	}
+
+	.text {
+		position: relative;
+		display: flex !important;
+		align-items: center;
+		width: 100%;
+		height: 130px;
+		padding-right: 20px;
+		font-size: 16px;
+		line-height: 20px;
+		box-sizing: border-box;
+
+		a {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			text-decoration: underline;
+		}
+	}
+}
+
+h2, span {
+	user-select: none;
 }
 
 .cards {
@@ -279,15 +552,25 @@ img.title {
 }
 
 .this-is-the-dog {
+	display: none;
 	position: absolute;
-	right: 30px;
-	bottom: 25px;
 	font-family: @font-roboto;
 	font-size: 25px;
 	line-height: 1;
 	font-weight: 700;
 	text-transform: uppercase;
 	z-index: 2;
+
+	@media (min-width: 600px) {
+		display: block;
+		right: 20px;
+		bottom: 20px;
+	}
+
+	@media (min-width: 960px) {
+		right: 30px;
+		bottom: 25px;
+	}
 }
 
 </style>
