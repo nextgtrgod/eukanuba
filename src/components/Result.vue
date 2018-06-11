@@ -58,6 +58,14 @@
 	<section class="food">
 		<h1>Корм, который<br>подходит вашему<br>питомцу</h1>
 		<div class="js_slider" ref="carousel">
+
+			<ul class="js_dots" ref="js_dots">
+				<li
+					v-for="(description, foodID) in dogInfo.food"
+					:key="foodID"
+				/>
+			</ul>
+
 			<div class="js_frame">
 				<ul class="js_slides">
 					<li
@@ -65,21 +73,19 @@
 						v-for="(description, foodID) in dogInfo.food"
 						:key="foodID"
 					>
-						
-							<a class="image" :href="'https://eukanuba.ru/product/' + foodID">
-								<img :src="getFoodImage(foodID)">
-								<span>Подробнее</span>
-							</a>
-							<span class="text">
-								<a :href="'https://eukanuba.ru/product/' + foodID">
-									<h3>{{ food[foodID] }}</h3>
-								</a>
-								<p v-if="selected.old === 'щенки'">Количество корма в зависимости от веса<br>и возраста щенка - {{ description }}</p>
-								<p v-else>Количество корма в зависимости<br>от веса - {{ description }}</p>
-								<span>Количество приемов пищи - 2 раза в день.</span>
-								<span class="small">Более точный подбор корма можно сделать на сайте eukanuba.ru</span>
-							</span>
+						<a class="image" :href="'https://eukanuba.ru/product/' + foodID">
+							<img :src="getFoodImage(foodID)">
+							<span>Подробнее</span>
 						</a>
+						<span class="text">
+							<a :href="'https://eukanuba.ru/product/' + foodID">
+								<h3>{{ food[foodID] }}</h3>
+							</a>
+							<p v-if="selected.old === 'щенки'">Количество корма в зависимости от веса<br>и возраста щенка - {{ description }}</p>
+							<p v-else>Количество корма в зависимости<br>от веса - {{ description }}</p>
+							<span>Количество приемов пищи - 2 раза в день.</span>
+							<span class="small">Более точный подбор корма можно сделать на сайте eukanuba.ru</span>
+						</span>
 					</li>
 				</ul>
 			</div>
@@ -267,7 +273,50 @@ export default {
 		}
 	},
 	mounted() {
-		lory(this.$refs['carousel'], {
+		let carousel = this.$refs['carousel']
+
+		// handle dots
+        let dotCount = Object.keys(this.dogInfo.food).length
+        let dotContainer = this.$refs['js_dots']
+		let dotListItem = [...this.$refs['js_dots'].querySelectorAll('li')]
+
+		console.log(dotCount)
+
+        function handleDotEvent(e) {
+            if (e.type === 'before.lory.init') {
+            	dotListItem[0].classList.add('active');
+			}
+
+            if (e.type === 'after.lory.init') {
+				for (let i = 0; i < dotCount; i++) {
+					dotListItem[i].addEventListener('click', e => {
+						console.log(i)
+						dot_navigation_slider.slideTo(i)
+					})
+             	}
+			}
+
+            if (e.type === 'after.lory.slide') {
+				for (let i = 0; i < dotCount; i++) {
+					dotListItem[i].classList.remove('active');
+				}
+              	dotListItem[e.detail.currentSlide].classList.add('active');
+			}
+
+            if (e.type === 'on.lory.resize') {
+                for (let i = 0, len = dotListItem.length; i < len; i++) {
+                    dotListItem[i].classList.remove('active');
+                }
+                dotListItem[0].classList.add('active');
+            }
+		}
+
+        carousel.addEventListener('before.lory.init', handleDotEvent);
+        carousel.addEventListener('after.lory.init', handleDotEvent);
+        carousel.addEventListener('after.lory.slide', handleDotEvent);
+		carousel.addEventListener('on.lory.resize', handleDotEvent);
+
+		var dot_navigation_slider = lory(carousel, {
             enableMouseEvents: true
 		})
 	},
@@ -665,36 +714,66 @@ h3 {
 .food {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	padding: 35px 80px;
+	justify-content: center;
+	padding: 35px 10px;
 	background-color: @color-main;
 	color: #FFF;
 	height: 330px;
 	box-sizing: border-box;
 
 	h1 {
+		flex-shrink: 0;
 		font-size: 32px;
 		line-height: 40px;
+		margin-right: 40px;
+	}
+
+	.js_slider {
+		position: relative;
 	}
 
 	.js_frame {
-		width: 700px;
 		position: relative;
+		width: 700px;
 		overflow: hidden;
 		white-space: nowrap;
 	}
 
-	// .js_slides {
-	// 	display: inline-block;
-	// }
+	ul.js_dots {
+		position: absolute;
+		bottom: 30px;
+		left: 211.5px;
+		display: flex;
+		z-index: 2;
 
-	ul {
+		li {
+			width: 10px;
+			height: 10px;
+			margin-right: 15px;
+			background-color: #FFF;
+			border-radius: 50%;
+			opacity: .5;
+			transition: opacity .2s;
+			cursor: pointer;
+
+			&:last-child {
+				margin-right: 0;
+			}
+
+			&.active {
+				opacity: 1;
+			}
+		}
+	}
+
+	ul.js_slides {
 		display: inline-flex;
 		align-items: stretch;
 		justify-content: center;
+		z-index: 1;
 	}
 
-	li {
+	li.js_slide {
 		flex: 1 0 auto;
 		position: relative;
 		width: 700px;
@@ -705,7 +784,11 @@ h3 {
 		white-space: initial;
 
 		a {
-			display: block;
+			&:hover {
+				&>* {
+					text-decoration: underline;
+				}
+			}
 		}
 
 		span {
@@ -742,12 +825,6 @@ h3 {
 			z-index: -1;
 		}
 
-		&:hover {
-			span {
-				text-decoration: underline;
-			}
-		}
-
 		img {
 			flex: 0 0 auto;
 			width: 100%;
@@ -767,13 +844,17 @@ h3 {
 	}
 
 	.text {
+		width: 100%;
+
 		p {
+			margin-top: 10px;
+			margin-bottom: 5px;
 			font-size: 16px;
 			line-height: 24px;
 		}
 
 		span {
-			margin-bottom: 15px;
+			margin-bottom: 5px;
 			font-size: 16px;
 			line-height: 21px;
 			opacity: .8;
@@ -786,17 +867,6 @@ h3 {
 			opacity: .6;
 		}
 	}
-
-	// ul.carousel {
-	// 	max-width: 650px;
-	// 	li {
-
-	// 		span.text {
-	// 			flex-shrink: 0;
-	// 			max-width: 440px;
-	// 		}
-	// 	}
-	// }
 }
 
 
