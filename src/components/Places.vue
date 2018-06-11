@@ -183,7 +183,7 @@ export default {
 
 	.toggle-shares {
 		position: fixed;
-		left: 25px;
+		left: 24px;
 		bottom: 30px;
 
 		&:hover {
@@ -195,7 +195,7 @@ export default {
 
 	.shares {
 		position: fixed;
-		left: 12px;
+		left: 11px;
 		bottom: 60px;
 		flex-direction: column-reverse;
 
@@ -232,7 +232,7 @@ a#logo-eukanuba {
 	position: absolute;
 	top: 32px;
 	right: 0px;
-	width: 250px;
+	width: 300px;
 
 	@media (min-width: 480px) {
 		display: block;
@@ -240,7 +240,7 @@ a#logo-eukanuba {
 
 	@media (min-width: 960px) {
 	    top: -25px;
-    	right: -76px;	
+    	right: -75px;	
 	}
 }
 

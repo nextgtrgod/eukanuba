@@ -113,13 +113,23 @@ export default {
 
 .question {
 	position: relative;
-	width: 570px;
-	height: 380px;
+	width: calc(~'100% - 20px');
+	// min-height: 380px;
+	min-height: 435px;
 	padding-top: 50px;
 	background-color: #FFF;
 	text-align: center;
 	box-shadow: 0 6px 10px 1px rgba(0, 0, 0, 0.05);
 	box-sizing: border-box;
+
+	@media (min-width: 480px) {
+		width: calc(~'100% - 80px');
+	}
+
+	@media (min-width: 960px) {
+		width: 570px;
+		height: 380px;
+	}
 
 	&:before,
 	&:after {
@@ -133,15 +143,25 @@ export default {
 	&:before {
 		left: 20px;
 		top: calc(~'50% - 100px');
-		width: 4px;
-		height: 100px;
+		width: 3px;
+		height: 60px;
+
+		@media (min-width: 960px) {
+			width: 4px;
+			height: 100px;
+		}
 	}
 
 	&:after {
 		right: 30px;
 		bottom: 20px;
-		width: 100px;
-		height: 4px;
+		width: 60px;
+		height: 3px;
+
+		@media (min-width: 960px) {
+			height: 4px;
+			width: 100px;
+		}
 	}
 
 	&.answered {
@@ -180,22 +200,37 @@ h3 {
 }
 
 .answers {
-	display: inline-flex;
-	margin: 0 auto;
+	display: flex;
+	max-width: 95%;
+	margin: 55px auto;
+	// margin-bottom: 25px;
 	padding-left: 35px;
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: center;
 	box-sizing: border-box;
 
+	@media (min-width: 480px) {
+		max-width: 80%;
+	}
+
+	@media (min-width: 960px) {
+		margin-top: 30px;
+		display: inline-flex;
+	}
+
 	&[data-count="4"] {
-		max-width: 500px;
-		margin: 45px auto;
+		margin: 35px auto;
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
 		align-items: flex-start;
 		justify-content: flex-start;
+
+		@media (min-width: 960px) {
+			max-width: 500px;
+			margin: 70px auto;
+		}
 
 		button {
 			flex: 1 0 50%;
@@ -250,6 +285,7 @@ button.checkbox {
 	}
 
 	p {
+		flex-shrink: 0;
 		margin: 0;
 		margin-top: 3.5px;
 		&:first-letter {
@@ -264,6 +300,7 @@ button.checkbox {
 	}
 
 	span {
+		flex-shrink: 0;
 		width: 20px;
 		height: 20px;
 		margin-right: 10px;
@@ -283,8 +320,9 @@ button.next {
 	position: absolute;
 	left: 50%;
 	bottom: 45px;
-	margin: auto;
 	transform: translateX(-50%);
+	margin: auto;
+	// margin-bottom: 40px;
 	padding: 15px 32px;
 	padding-top: 17px;
 	font-family: @font-gotham;
@@ -296,6 +334,14 @@ button.next {
 	opacity: .2;
 	transition: opacity .2s;
 	pointer-events: none;
+
+	// @media (min-width: 960px) {
+	// 	position: absolute;
+	// 	left: 50%;
+	// 	bottom: 45px;
+	// 	margin: auto;
+	// 	transform: translateX(-50%);
+	// }
 }
 
 </style>

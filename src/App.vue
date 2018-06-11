@@ -40,10 +40,11 @@ export default {
 
 #app {
 	max-width: 100%;
+	height: 100%;
 	font-family: @font-gotham;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	overflow: hidden;
+	overflow: auto;
 }
 
 </style>

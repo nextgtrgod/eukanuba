@@ -1,7 +1,7 @@
 <template>
 <main>
 	<div class="inner">
-		<div class="video-wrap">
+		<div v-if="device === 'desktop'" class="video-wrap">
 			<video src="../assets/bg.mp4" autoplay loop muted/>
 		</div>
 
@@ -23,7 +23,7 @@
 			<img src="../assets/images/logo-eukanuba.svg">	
 		</a>
 
-		<img src="../assets/images/main-page-title.svg">
+		<img class="title" src="../assets/images/main-page-title.svg">
 		<p v-html="'Любую проглуку c&nbsp;собакой можно превратить в&nbsp;отличную тренировку. Ведь ваша собака&nbsp;&mdash; это ваш персональный тренер, который своей энергией и&nbsp;силой поможет вам тренироваться каждый день. А&nbsp;мы&nbsp;расскажем как и&nbsp;где это лучше всего делать, и&nbsp;как поддержать вашего питомца на&nbsp;пике формы!'"/>
 		
 		<div class="cards">
@@ -122,7 +122,7 @@ export default {
 
 main {
 	width: 100%;
-	height: 100vh;
+	min-height: 100vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -138,12 +138,15 @@ main {
 	position: relative;
 	width: 100%;
 	height: 100%;
+	min-height: calc(~'100vh - 80px');
 	display: inline-flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background-image: url('../assets/images/main-page-bg-new.jpg');
+	background-size: cover;
 	background-color: @color-main;
+	box-sizing: border-box;
 	// overflow: hidden;
 
 	&:before {
@@ -155,6 +158,16 @@ main {
 		bottom: 0;
 		background-color: fade(@color-main, 75%);
 		z-index: 1;
+	}
+
+	.toggle-shares {
+		position: absolute;
+		z-index: 3;
+	}
+
+	.shares {
+		position: absolute;
+		z-index: 3;
 	}
 }
 
@@ -174,14 +187,16 @@ a#logo-afisha {
 	left: 30px;
 	display: block;
 	width: 110px;
+	z-index: 2;
 }
 
 a#logo-eukanuba {
 	position: absolute;
 	top: 20px;
-	right: -45px;
+	right: -40px;
 	display: block;
 	width: 250px;
+	z-index: 2;
 }
 
 p {
@@ -189,14 +204,16 @@ p {
 	max-width: 685px;
 	margin-top: 40px;
 	margin-bottom: 30px;
+	padding: 0 20px;
 	font-family: @font-gotham;
 	font-size: 16px;
 	line-height: 24px;
 	z-index: 2;
 }
 
-img {
+img.title {
 	position: relative;
+	margin-top: 90px;
 	max-width: 540px;
 	z-index: 2;
 }
@@ -204,8 +221,10 @@ img {
 .cards {
 	position: relative;
 	display: inline-flex;
+	flex-wrap: wrap;
 	align-items: stretch;
 	justify-content: center;
+	margin-bottom: 60px;
 	z-index: 2;
 
 	a {
@@ -214,7 +233,8 @@ img {
 		flex-direction: column;
 		align-items: center;
 		justify-content: flex-start;
-		margin-right: 35px;
+		padding: 0 35px;
+		margin-bottom: 40px;
 
 		&:hover {
 			.link {
@@ -256,10 +276,6 @@ img {
 			transition: border .2s;
 		}
 	}
-}
-
-.shares {
-	position: absolute;
 }
 
 .this-is-the-dog {

@@ -13,16 +13,16 @@ let selected = {}
 
 Object.keys(options).map(key => selected[key] = '')
 
-// selected = {
-// 	old: 'щенки',
-// 	body: 'атлетичное',
-// 	size: 'миниатюрный',
-// 	gender: 'мужской',
-// 	age: '18-24',
-// 	place: 'парк',
-// 	time: 'до 20 мин.',
-// 	city: 'москва',
-// }
+selected = {
+	old: 'щенки',
+	body: 'атлетичное',
+	size: 'миниатюрный',
+	gender: 'мужской',
+	age: '18-24',
+	place: 'парк',
+	time: 'до 20 мин.',
+	city: 'москва',
+}
 
 const state = {
 	selected,
