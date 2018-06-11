@@ -14,7 +14,7 @@ let selected = {}
 Object.keys(options).map(key => selected[key] = '')
 
 selected = {
-	old: 'щенки',
+	old: 'взрослые',
 	body: 'атлетичное',
 	size: 'миниатюрный',
 	gender: 'мужской',

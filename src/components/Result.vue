@@ -56,7 +56,34 @@
 	</section>
 
 	<section class="food">
-
+		<h1>Корм, который<br>подходит вашему<br>питомцу</h1>
+		<div class="js_slider" ref="carousel">
+			<div class="js_frame">
+				<ul class="js_slides">
+					<li
+						class="js_slide"
+						v-for="(description, foodID) in dogInfo.food"
+						:key="foodID"
+					>
+						
+							<a class="image" :href="'https://eukanuba.ru/product/' + foodID">
+								<img :src="getFoodImage(foodID)">
+								<span>Подробнее</span>
+							</a>
+							<span class="text">
+								<a :href="'https://eukanuba.ru/product/' + foodID">
+									<h3>{{ food[foodID] }}</h3>
+								</a>
+								<p v-if="selected.old === 'щенки'">Количество корма в зависимости от веса<br>и возраста щенка - {{ description }}</p>
+								<p v-else>Количество корма в зависимости<br>от веса - {{ description }}</p>
+								<span>Количество приемов пищи - 2 раза в день.</span>
+								<span class="small">Более точный подбор корма можно сделать на сайте eukanuba.ru</span>
+							</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</section>
 
 	<section class="bloggers">
@@ -179,6 +206,7 @@
 				/>
 			</svg>
 		</button>
+
 		<div class="shares" :class="{ visible: sharesVisible }">
 			<a :href='shareTg' @click='shareClick("tg")' target='_blank'>
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 261.2">
@@ -207,6 +235,7 @@
 
 
 <script>
+import { lory } from 'lory.js'
 import VBar from 'v-bar'
 import Events from '@/events'
 import { mapState } from 'vuex'
@@ -215,6 +244,7 @@ import time from '@/data/time'
 import man from '@/data/man'
 import dog from '@/data/dog'
 import games from '@/data/games'
+import food from '@/data/food'
 import places from '@/data/places'
 
 export default {
@@ -230,13 +260,16 @@ export default {
 			time,
 			dog,
 			man,
-			places,
+			food,
 			games,
+			places,
 			sharesVisible: false,
 		}
 	},
-	created() {
-		console.log(this.selected)
+	mounted() {
+		lory(this.$refs['carousel'], {
+            enableMouseEvents: true
+		})
 	},
 	methods: {
 		getMapLink: latLng => `https://www.google.com/maps/?q=${latLng[0]},${latLng[1]}`,
@@ -254,6 +287,14 @@ export default {
 			} catch (e) {
 				console.log(e)
 				return require (`@/assets/images/games/dog.svg`)
+			}
+		},
+		getFoodImage(id) {
+			try {
+				return require(`@/assets/images/food/${id}.png`)
+			} catch (e) {
+				console.log(e)
+				return require(`@/assets/images/food/51.png`)
 			}
 		},
 	},
@@ -622,10 +663,140 @@ h3 {
 
 
 .food {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	padding: 35px 80px;
 	background-color: @color-main;
+	color: #FFF;
 	height: 330px;
 	box-sizing: border-box;
+
+	h1 {
+		font-size: 32px;
+		line-height: 40px;
+	}
+
+	.js_frame {
+		width: 700px;
+		position: relative;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	// .js_slides {
+	// 	display: inline-block;
+	// }
+
+	ul {
+		display: inline-flex;
+		align-items: stretch;
+		justify-content: center;
+	}
+
+	li {
+		flex: 1 0 auto;
+		position: relative;
+		width: 700px;
+		height: 330px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		white-space: initial;
+
+		a {
+			display: block;
+		}
+
+		span {
+			display: block;
+		}
+	}
+
+	h2, span {
+		user-select: none;
+	}
+
+	.image {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 190px;
+		height: 330px;
+		margin-right: 20px;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 70px;
+			left: 0;
+			right: 0;
+			width: 190px;
+			height: 190px;
+			margin: auto;
+			background-color: #ef33a2;
+			border-radius: 50%;
+			z-index: -1;
+		}
+
+		&:hover {
+			span {
+				text-decoration: underline;
+			}
+		}
+
+		img {
+			flex: 0 0 auto;
+			width: 100%;
+			max-width: 110px;
+			margin-bottom: 30px;
+		}
+
+		span {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 45px;
+			margin: auto;
+			font-size: 14px;
+			text-align: center;
+		}
+	}
+
+	.text {
+		p {
+			font-size: 16px;
+			line-height: 24px;
+		}
+
+		span {
+			margin-bottom: 15px;
+			font-size: 16px;
+			line-height: 21px;
+			opacity: .8;
+		}
+
+		span.small {
+			margin-bottom: 0;
+			font-size: 14px;
+			line-height: 16px;
+			opacity: .6;
+		}
+	}
+
+	// ul.carousel {
+	// 	max-width: 650px;
+	// 	li {
+
+	// 		span.text {
+	// 			flex-shrink: 0;
+	// 			max-width: 440px;
+	// 		}
+	// 	}
+	// }
 }
 
 
