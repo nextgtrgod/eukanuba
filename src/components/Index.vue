@@ -16,8 +16,8 @@
 
 		<a
 			id="logo-eukanuba"
-			@click="linkClick('https://www.eukanuba.ru/')"
-			href="https://www.eukanuba.ru/"
+			@click="linkClick('https://www.eukanuba.ru/product/')"
+			href="https://www.eukanuba.ru/product/"
 			target="_blank"
 		>
 			<img src="../assets/images/logo-eukanuba.svg">	
@@ -32,27 +32,17 @@
 				<li/>
 				<li/>
 				<li/>
-				<li/>
 			</ul>
 
 			<div class="js_frame">
 				<ul class="js_slides">
 					<li class="js_slide">
 						<span class="img-wrap">
-							<img src="../assets/images/card-1.svg">
-						</span>
-						<span class="text">
-							Расскажите о себе<br>и своей собаке
-							<router-link to="/interview">Узнать</router-link>
-						</span>
-					</li>
-					<li class="js_slide">
-						<span class="img-wrap">
 							<img src="../assets/images/card-2.svg">
 						</span>
 						<span class="text">
 							Подберите подходящие виды активности для<br>вашей собаки и вас
-							<router-link to="/interview">Узнать</router-link>
+							<router-link to="/interview">Подобрать</router-link>
 						</span>
 					</li>
 					<li class="js_slide">
@@ -80,17 +70,10 @@
 		<div v-if="device === 'desktop'" class="cards">
 			<router-link to="/interview">
 				<span class="img-wrap">
-					<img src="../assets/images/card-1.svg">
-				</span>
-				<span class="text">Расскажите о себе<br>и своей собаке</span>
-				<span class="link">Узнать</span>
-			</router-link>
-			<router-link to="/interview">
-				<span class="img-wrap">
 					<img src="../assets/images/card-2.svg">
 				</span>
 				<span class="text">Подберите подходящие виды активности для<br>вашей собаки и вас</span>
-				<span class="link">Узнать</span>
+				<span class="link">Подобрать</span>
 			</router-link>
 			<router-link to="/places">
 				<span class="img-wrap">
@@ -99,7 +82,7 @@
 				<span class="text">Выберите места для<br>энергичных прогулок</span>
 				<span class="link">Выбрать</span>
 			</router-link>
-			<a href="https://google.com" target="_blank" @click="linkClick('https://google.com')">
+			<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/" target="_blank" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')">
 				<span class="img-wrap">
 					<img src="../assets/images/card-4.svg">
 				</span>
@@ -166,11 +149,9 @@ export default {
 		let carousel = this.$refs['carousel']
 
 		// handle dots
-        let dotCount = 4
+        let dotCount = 3
         let dotContainer = this.$refs['js_dots']
 		let dotListItem = [...this.$refs['js_dots'].querySelectorAll('li')]
-
-		console.log(dotCount)
 
         function handleDotEvent(e) {
             if (e.type === 'before.lory.init') {

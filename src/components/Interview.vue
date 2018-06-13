@@ -11,13 +11,16 @@
 
 	<a
 		id="logo-eukanuba"
-		@click="linkClick('https://www.eukanuba.ru/')"
-		href="https://www.eukanuba.ru/"
+		@click="linkClick('https://www.eukanuba.ru/product/')"
+		href="https://www.eukanuba.ru/product/"
 		target="_blank"
 	>
 		<img src="../assets/images/logo-eukanuba.svg">	
 	</a>
 	<div class="wrap">
+
+		<router-link class="back" to="/">На главную</router-link>
+
 		<p v-html="'Выберите параметры, которые помогут нам подобрать лучшую программу для вас и&nbsp;вашей собаки'"/>
 		<question
 			v-if="currentQuestion === key"
@@ -173,7 +176,7 @@ export default {
 	height: 100%;
 
 	@media (min-width: 960px) {
-		min-height: 720px;
+		min-height: 800px;
 	}
 
 	.toggle-shares {
@@ -251,8 +254,8 @@ a#logo-eukanuba {
 
 	p {
 		display: none;
-		margin-top: 20px;
-		margin-bottom: 35px;
+		margin-top: 30px;
+		margin-bottom: 40px;
 		padding: 0 40px;
 		font-family: @font-gotham;
 		font-size: 16px;
@@ -263,6 +266,23 @@ a#logo-eukanuba {
 		@media (min-width: 960px) {
 			display: block;
 		} 
+	}
+}
+
+.back {
+	display: none;
+	align-self: flex-start;
+	margin-top: 20px;
+	margin-left: 35px;
+	font-family: @font-roboto;
+	font-size: 14px;
+	color: #000;
+	text-decoration: underline !important;
+	text-transform: uppercase;
+	z-index: 1;
+
+	@media (min-width: 960px) {
+		display: inline-block;
 	}
 }
 

@@ -15,8 +15,8 @@
 
 	<a
 		id="logo-eukanuba"
-		@click="linkClick('https://www.eukanuba.ru/')"
-		href="https://www.eukanuba.ru/"
+		@click="linkClick('https://www.eukanuba.ru/product/')"
+		href="https://www.eukanuba.ru/product/"
 		target="_blank"
 	>
 		<img src="../assets/images/logo-eukanuba.svg">	
@@ -26,6 +26,7 @@
 	<h2>Рекомендуем вам прогуляться с вашим питомцем в:</h2>
 
 	<div class="filter">
+		<span>Выберите ваш город:</span>
 		<button :class="{ active: !selected.city.length }" @click="selectCity('')">Все города</button>
 		<button :class="{ active: selected.city === 'москва' }" @click="selectCity('москва')">Москва</button>
 		<button :class="{ active: selected.city === 'Санкт-Петербург' }" @click="selectCity('Санкт-Петербург')">Санкт-Петербург</button>
@@ -44,10 +45,12 @@
 			<span class="text-wrap">
 				<h2>{{ place.name }}</h2>
 
-				<v-bar v-if="device === 'desktop'" wrapper="v-bar">
+				<!-- <v-bar v-if="device === 'desktop'" wrapper="v-bar">
 					<p v-html="place.description"/>
 				</v-bar>
-				<p v-else v-html="place.description"/>
+				<p v-else v-html="place.description"/> -->
+
+				<p v-html="place.description"/>
 
 				<span class="link-wrap">
 					<span class="icon">
@@ -176,7 +179,7 @@ export default {
 	@media (min-width: 960px) {
 		width: calc(~'100% - 150px');
 		margin: 60px 75px;
-		margin-bottom: 0;
+		// margin-bottom: 0;
 		padding-top: 60 - 35px;
 		box-sizing: border-box;
 	}
@@ -291,7 +294,7 @@ h2 {
 		justify-content: center;
 	}
 
-	button {
+	&>* {
 		margin-bottom: 30px;
 		color: inherit;
 		font-family: @font-roboto;
@@ -318,6 +321,19 @@ h2 {
 			font-size: 16px;
 		}
 	}
+
+	span {
+		width: 100%;
+		transition: none;
+
+		@media (min-width: 960px) {
+			width: auto;
+		}
+
+		&:hover {
+			border-bottom: 1px solid transparent;
+		}
+	}
 }
 
 ul {
@@ -327,7 +343,7 @@ ul {
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		max-width: 750px;
+		// max-width: 750px;
 		margin: auto;
 	}
 
@@ -340,7 +356,7 @@ ul {
 
 		@media (min-width: 960px) {
 			display: inline-flex;
-			align-items: center;
+			align-items: flex-start;
 			justify-content: center;
 			width: 100%;
 			margin-bottom: 40px;
@@ -414,8 +430,8 @@ ul {
 
 		@media (min-width: 960px) {
 			width: calc(~'100% - 40px');
-			font-size: 16px;
-			line-height: 24px;
+			font-size: 14px;
+			line-height: 20px;
 			padding-right: 40px !important;
 		}
 	}

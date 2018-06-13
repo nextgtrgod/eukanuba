@@ -11,13 +11,17 @@
 
 	<a
 		id="logo-eukanuba"
-		@click="linkClick('https://www.eukanuba.ru/')"
-		href="https://www.eukanuba.ru/"
+		@click="linkClick('https://www.eukanuba.ru/product')"
+		href="https://www.eukanuba.ru/product"
 		target="_blank"
 	>
 		<img src="../assets/images/logo-eukanuba.svg">	
 	</a>
+
 	<section class="dog">
+
+		<router-link class="back" to="/">На главную</router-link>
+
 		<div class="column image-wrap">
 			<img v-if="device === 'mobile'" src="../assets/images/dog-mobile.jpg">
 			<img v-else src="../assets/images/dog.jpg">
@@ -61,6 +65,14 @@
 		<h2>Корм, который подходит<br>вашему питомцу</h2>
 		<div class="js_slider" ref="carousel">
 
+			<button class="nav prev" @click="prev">
+				<img src="../assets/images/prev.svg">
+			</button>
+
+			<button class="nav next" @click="next">
+				<img src="../assets/images/next.svg">
+			</button>
+
 			<ul class="js_dots" ref="js_dots">
 				<li
 					v-for="(description, foodID) in dogInfo.food"
@@ -94,7 +106,15 @@
 							<p v-if="selected.old === 'щенки'">Количество корма в зависимости от веса<br>и возраста щенка - {{ description }}</p>
 							<p v-else>Количество корма в зависимости<br>от веса - {{ description }}</p>
 							<span>Количество приемов пищи - 2 раза в день.</span>
-							<span v-if="device === 'desktop'" class="small">Более точный подбор корма можно сделать на сайте eukanuba.ru</span>
+							<a
+								v-if="device === 'desktop'"
+								class="small"
+								href="https://www.eukanuba.ru/product/"
+								@click="linkClick('https://www.eukanuba.ru/product/')"
+								target="_blank"
+							>
+								Узнать точные нормы кормления вы можете на сайте eukanuba.ru
+							</a>
 						</span>
 					</li>
 				</ul>
@@ -106,7 +126,7 @@
 		<h2>Интересные рассказы<br>и советы популярных блогеров</h2>
 		<ul>
 			<li>
-				<a href="/" @click="linkClick('/')" target="_blank">
+				<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')" target="_blank">
 					<img src="../assets/images/bloggers/1.png">
 					<span>
 						Иван Милехин
@@ -115,7 +135,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="/" @click="linkClick('/')" target="_blank">
+				<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')" target="_blank">
 					<img src="../assets/images/bloggers/2.png">
 					<span>
 						Анна Екомасова
@@ -129,7 +149,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="/" @click="linkClick('/')" target="_blank">
+				<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')" target="_blank">
 					<img src="../assets/images/bloggers/3.png">
 					<span>
 						Максим Журило
@@ -138,7 +158,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="/" @click="linkClick('/')" target="_blank">
+				<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')" target="_blank">
 					<img src="../assets/images/bloggers/4.png">
 					<span>
 						Дмитрий Игнатов
@@ -177,8 +197,9 @@
 			</div>
 		</div>
 		<div class="column image-wrap">
-			<img v-if="device === 'mobile'" src="../assets/images/man-mobile.jpg">
-			<img v-else src="../assets/images/man.jpg">
+			<!-- <img v-if="device === 'mobile'" src="../assets/images/man-mobile.jpg"> -->
+			<img v-if="selected.gender === 'мужской'" src="../assets/images/man.jpg">
+			<img v-else src="../assets/images/woman.jpg">
 		</div>
 	</section>
 
@@ -195,10 +216,12 @@
 				<span class="text-wrap">
 					<h2>{{ place.name }}</h2>
 
-					<v-bar v-if="device === 'desktop'" wrapper="v-bar">
+					<!-- <v-bar v-if="device === 'desktop'" wrapper="v-bar">
 						<p v-html="place.description"/>
 					</v-bar>
-					<p v-else v-html="place.description"/>
+					<p v-else v-html="place.description"/> -->
+
+					<p v-html="place.description"/>
 
 					<span class="link-wrap">
 						<span class="icon">
@@ -211,6 +234,9 @@
 				</span>
 			</li>
 		</ul>
+
+		<router-link to="/" class="back">вернуться на главную</router-link>
+
 	</section>
 
 	<template v-if="device === 'desktop'">
@@ -253,7 +279,7 @@
 
 <script>
 import { lory } from 'lory.js'
-import VBar from 'v-bar'
+// import VBar from 'v-bar'
 import Events from '@/events'
 import { mapState } from 'vuex'
 import shareMixin from '@/utils/shares'
@@ -269,9 +295,9 @@ export default {
 	mixins: [
 		shareMixin
 	],
-	components: {
-		VBar,
-	},
+	// components: {
+	// 	VBar,
+	// },
 	data() {
 		return {
 			time,
@@ -284,8 +310,6 @@ export default {
 		}
 	},
 	mounted() {
-		this.$el.scrollTop = 0
-
 		let carousel = this.$refs['carousel']
 
 		// handle dots
@@ -330,6 +354,9 @@ export default {
 		var dot_navigation_slider = lory(carousel, {
             enableMouseEvents: true
 		})
+
+		Events.$on('slider-next', dot_navigation_slider.next)
+		Events.$on('slider-prev', dot_navigation_slider.prev)
 	},
 	methods: {
 		getMapLink: latLng => `https://www.google.com/maps/?q=${latLng[0]},${latLng[1]}`,
@@ -357,6 +384,10 @@ export default {
 				return require(`@/assets/images/food/51.png`)
 			}
 		},
+
+		// slider
+		prev: () => Events.$emit('slider-prev'),
+		next: () => Events.$emit('slider-next'),
 	},
 	computed: {
 		...mapState({
@@ -395,7 +426,7 @@ export default {
 
 	@media (min-width: 960px) {
 		margin: 60px auto;
-		margin-bottom: 0;
+		margin-bottom: 70px;
 		width: calc(~'100% - 150px');
 		max-width: 1120px;
 		overflow: visible;
@@ -440,6 +471,16 @@ export default {
 			fill: #000;
 		}
 	}
+}
+
+.back {
+	display: inline-block;
+	font-family: @font-roboto;
+	font-size: 14px;
+	color: #000;
+	text-decoration: underline !important;
+	text-transform: uppercase;
+	z-index: 1;
 }
 
 a#logo-afisha {
@@ -559,6 +600,17 @@ h3 {
 .dog {
 	display: flex;
 	flex-wrap: wrap;
+
+	.back {
+		display: none;
+		position: absolute;
+		top: 45px;
+		left: 40px;
+
+		@media (min-width: 960px) {
+			display: inline-block;
+		}
+	}
 
 	.image-wrap {
 		padding-top: 70%;
@@ -791,7 +843,7 @@ h3 {
 		flex-shrink: 0;
 		font-size: 32px;
 		line-height: 40px;
-		margin-right: 40px;
+		margin-right: 80px;
 
 		@media (min-width: 1200px) {
 			display: block;
@@ -813,6 +865,42 @@ h3 {
 
 	.js_slider {
 		position: relative;
+
+		.nav {
+			display: none;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 20px;
+			height: 20px;
+			margin: auto;
+			opacity: .8;
+
+			@media (min-width: 960px) {
+				display: block;
+			}
+
+			&:hover {
+				opacity: 1;
+			}
+
+			img {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 100%;
+				margin: auto;
+			}
+
+			&.prev {
+				left: -40px;
+			}
+
+			&.next {
+				right: -30px;
+			}
+		}
 	}
 
 	.js_frame {
@@ -828,7 +916,7 @@ h3 {
 
 		@media (min-width: 960px) {
 			padding: 0;
-			width: 700px;
+			width: 660px;
 		}
 	}
 
@@ -896,7 +984,7 @@ h3 {
 
 		@media (min-width: 960px) {
 			padding: 0;
-			width: 700px;
+			width: 660px;
 		}
 
 		a {
@@ -1032,18 +1120,24 @@ h3 {
 			line-height: 24px;
 		}
 
-		span {
+		span, a {
 			margin-bottom: 5px;
 			font-size: 16px;
 			line-height: 21px;
 			opacity: .8;
 		}
 
-		span.small {
+		a.small {
 			margin-bottom: 0;
 			font-size: 14px;
 			line-height: 16px;
+			transition: opacity .2s;
 			opacity: .6;
+
+			&:hover {
+				opacity: 1;
+				text-decoration: underline;
+			}
 		}
 	}
 }
@@ -1262,29 +1356,29 @@ h3 {
 
 .places {
 	padding: 10px 20px;
-	padding-top: 60px;
 	background-color: @color-main;
 	color: #FFF;
 
+	@media (min-width: 960px) {
+		padding: 10px 50px;
+		padding-top: 55px;
+	}
+
 	h2 {
-		margin: 35px 0;
+		margin: 0;
+		margin-bottom: 35px;
 		font-size: 28px;
 		line-height: 35px;
 		font-weight: 700;
 		font-family: @font-roboto;
 		text-transform: uppercase;
+		text-align: center;
 
 		@media (min-width: 960px) {
 			font-size: 24px;
 			text-align: center;
-			margin-bottom: 60px;
+			margin-bottom: 30px;
 		}
-	}
-
-	h2 {
-		text-align: center;
-		margin: 0;
-		margin-bottom: 35px;
 	}
 
 	ul {
@@ -1294,7 +1388,7 @@ h3 {
 			align-items: center;
 			justify-content: center;
 			width: 100%;
-			max-width: 750px;
+			// max-width: 750px;
 			margin: auto;
 		}
 
@@ -1307,7 +1401,7 @@ h3 {
 
 			@media (min-width: 960px) {
 				display: inline-flex;
-				align-items: center;
+				align-items: flex-start;
 				justify-content: center;
 				width: 100%;
 				margin-bottom: 40px;
@@ -1376,9 +1470,9 @@ h3 {
 		p {
 			margin: 0;
 			margin-bottom: 25px;
-			font-size: 16px;
+			font-size: 14px;
 			font-weight: 400;
-			line-height: 24px;
+			line-height: 20px;
 
 			@media (min-width: 960px) {
 				width: calc(~'100% - 40px');
@@ -1427,102 +1521,11 @@ h3 {
 		}
 	}
 
-	// ul {
-	// 	display: flex;
-	// 	flex-direction: column;
-	// 	align-items: center;
-	// 	justify-content: center;
-	// 	width: 100%;
-	// 	max-width: 750px;
-	// 	margin: auto;
+	.back {
+		color: #FFF;
+		margin-bottom: 30px;
+	}
 
-	// 	li {
-	// 		display: inline-flex;
-	// 		align-items: center;
-	// 		justify-content: center;
-	// 		width: 100%;
-	// 		margin-bottom: 40px;
-	// 	}
-
-	// 	span.image-wrap {
-	// 		width: 380px;
-	// 		height: 260px;
-	// 		flex: 0 0 380px;
-	// 		margin-right: 40px;
-	// 		overflow: hidden;
-
-	// 		img {
-	// 			position: relative;
-	// 			width: 100%;
-	// 			height: auto;
-	// 		}
-	// 	}
-
-	// 	span.text-wrap {
-	// 		flex-basis: 100%;
-	// 	}
-
-	// 	h2 {
-	// 		margin-top: 0;
-	// 		margin-bottom: 10px;
-	// 		font-family: @font-gotham;
-	// 		text-align: left;
-	// 		text-transform: none;
-	// 	}
-
-	// 	.v-bar {
-	// 		display: block;
-	// 		width: 100%;
-	// 		height: 4 * 24px;
-	// 		margin-bottom: 25px;
-	// 		padding: 5px 0;
-	// 		border-bottom: 1px dashed fade(#FFF, 50%);
-	// 	}
-		
-	// 	p {
-	// 		// width: calc(~'100% - 30px');
-	// 		margin: 0;
-	// 		font-size: 16px;
-	// 		line-height: 24px;
-	// 		padding-right: 40px !important;
-	// 	}
-
-	// 	.link-wrap {
-	// 		display: inline-flex;
-	// 		align-items: center;
-	// 		justify-content: flex-start;
-
-	// 		.icon {
-	// 			position: relative;
-	// 			flex-shrink: 0;
-	// 			width: 50px;
-	// 			height: 50px;
-	// 			margin-right: 10px;
-	// 			background-color: #ef31a2;
-	// 			border-radius: 50%;
-
-	// 			img {
-	// 				position: absolute;
-	// 				top: 0;
-	// 				left: 0;
-	// 				right: 0;
-	// 				bottom: 0;
-	// 				margin: auto;
-	// 				width: 24px;
-	// 			}
-	// 		}
-
-	// 		a {
-	// 			font-size: 14px;
-	// 			line-height: 21px;
-
-	// 			&:hover {
-	// 				text-decoration: underline;
-	// 			}
-	// 		}
-	// 	}
-
-	// }
 }
 
 
