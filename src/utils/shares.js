@@ -26,8 +26,8 @@ export default {
 		}
 	},
 	methods: {
-		shareClick(soc) {
-			ga('send', 'event', 'share', this.$route.name, soc)
-		}
+		shareClick: soc => ga('send', 'event', 'share', this.$route.name, soc),
+
+		linkClick: url => ga('send', 'event', 'link', url),
 	}
 }

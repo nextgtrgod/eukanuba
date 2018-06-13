@@ -38,7 +38,7 @@
 			<p :data-description="description[option]">{{ option }}</p>
 		</button>
 	</div>
-	<button class="next" @click="next" ref="next">
+	<button class="next" @click="submit" ref="next">
 		Далее
 	</button>
 </div>
@@ -89,6 +89,11 @@ export default {
 	methods: {
 		select(value) {
 			this.selected = value
+		},
+		submit() {
+			ga('send', 'event', 'answer', `${this.about} - ${this.locale[this.type]} - ${this.selected}`)
+
+			this.next()
 		},
 	},
 	watch: {

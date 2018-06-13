@@ -75,6 +75,14 @@
 						v-for="(description, foodID) in dogInfo.food"
 						:key="foodID"
 					>
+						<span class="image">
+							<img :src="getFoodImage(foodID)">
+
+							<a :href="'https://eukanuba.ru/product/' + foodID">
+								<span>Подробнее</span>
+							</a>
+						</span>
+
 						<a class="image" :href="'https://eukanuba.ru/product/' + foodID">
 							<img :src="getFoodImage(foodID)">
 							<span>Подробнее</span>
@@ -86,7 +94,7 @@
 							<p v-if="selected.old === 'щенки'">Количество корма в зависимости от веса<br>и возраста щенка - {{ description }}</p>
 							<p v-else>Количество корма в зависимости<br>от веса - {{ description }}</p>
 							<span>Количество приемов пищи - 2 раза в день.</span>
-							<span class="small">Более точный подбор корма можно сделать на сайте eukanuba.ru</span>
+							<span v-if="device === 'desktop'" class="small">Более точный подбор корма можно сделать на сайте eukanuba.ru</span>
 						</span>
 					</li>
 				</ul>
@@ -98,7 +106,7 @@
 		<h2>Интересные рассказы<br>и советы популярных блогеров</h2>
 		<ul>
 			<li>
-				<a href="/">
+				<a href="/" @click="linkClick('/')" target="_blank">
 					<img src="../assets/images/bloggers/1.png">
 					<span>
 						Иван Милехин
@@ -107,7 +115,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="/">
+				<a href="/" @click="linkClick('/')" target="_blank">
 					<img src="../assets/images/bloggers/2.png">
 					<span>
 						Анна Екомасова
@@ -121,7 +129,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="/">
+				<a href="/" @click="linkClick('/')" target="_blank">
 					<img src="../assets/images/bloggers/3.png">
 					<span>
 						Максим Журило
@@ -130,7 +138,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="/">
+				<a href="/" @click="linkClick('/')" target="_blank">
 					<img src="../assets/images/bloggers/4.png">
 					<span>
 						Дмитрий Игнатов
@@ -276,14 +284,14 @@ export default {
 		}
 	},
 	mounted() {
+		this.$el.scrollTop = 0
+
 		let carousel = this.$refs['carousel']
 
 		// handle dots
         let dotCount = Object.keys(this.dogInfo.food).length
         let dotContainer = this.$refs['js_dots']
 		let dotListItem = [...this.$refs['js_dots'].querySelectorAll('li')]
-
-		console.log(dotCount)
 
         function handleDotEvent(e) {
             if (e.type === 'before.lory.init') {
@@ -573,6 +581,7 @@ h3 {
 		background-color: #eef0f2;
 
 		@media (min-width: 960px) {
+			padding: 35px;
 			padding-top: 45px;
 		}
 
@@ -592,6 +601,16 @@ h3 {
 		padding: 0 20px;
 		padding-bottom: 25px;
 		background-color: #eef0f2;
+
+		&>h2 {
+			@media (max-width: 719px) {
+				font-size: 18px;
+			}
+		}
+
+		@media (min-width: 960px) {
+			padding: 35px;
+		}
 
 		div {
 			position: relative;
@@ -628,9 +647,14 @@ h3 {
 			}
 
 			h1 {
-				font-size: 100px;
+				font-size: 90px;
 				font-weight: 700;
-				line-height: 80px;
+				line-height: 70px;
+
+				@media (min-width: 720px) {
+					font-size: 100px;
+					line-height: 80px;
+				}
 
 				@media (min-width: 960px) {
 					font-size: 140px;
@@ -658,6 +682,10 @@ h3 {
 	.games {
 		padding: 20px;
 		padding-top: 25px;
+
+		@media (min-width: 960px) {
+			padding: 35px;
+		}
 
 		h3 {
 			margin: 0 auto;
@@ -744,9 +772,14 @@ h3 {
 	align-items: center;
 	justify-content: center;
 	padding: 35px 10px;
+	padding-bottom: 65px;
 	background-color: @color-main;
 	color: #FFF;
 	box-sizing: border-box;
+
+	@media (min-width: 720px) {
+		padding: 35px 10px;
+	}
 
 	@media (min-width: 960px) {
 		flex-direction: row;
@@ -766,9 +799,12 @@ h3 {
 	}
 
 	h2 {
-		margin-top: 10px;
-		margin-bottom: 0;
+		margin: 0;
 		text-align: center;
+
+		@media (min-width: 720px) {
+			margin-top: 10px;
+		}
 
 		@media (min-width: 960px) {
 			display: none;
@@ -782,10 +818,13 @@ h3 {
 	.js_frame {
 		position: relative;
 		width: 100vw;
-		padding: 0 20px;
 		overflow: hidden;
 		white-space: nowrap;
 		box-sizing: border-box;
+
+		@media (min-width: 720px) {
+			padding: 0 20px;
+		}
 
 		@media (min-width: 960px) {
 			padding: 0;
@@ -795,11 +834,15 @@ h3 {
 
 	ul.js_dots {
 		position: absolute;
-		bottom: 0;
+		bottom: -40px;
 		left: 50%;
 		transform: translateX(-50%);
 		display: flex;
 		z-index: 2;
+
+		@media (min-width: 720px) {
+			bottom: 0;
+		}
 
 		@media (min-width: 960px) {
 			left: 211.5px;
@@ -838,13 +881,18 @@ h3 {
 		flex: 1 0 auto;
 		position: relative;
 		width: 100vw;
-		padding: 20px;
-		height: 330px;
 		display: inline-flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		white-space: initial;
 		box-sizing: border-box;
+
+		@media (min-width: 720px) {
+			flex-direction: row;
+			height: 330px;
+			padding: 20px;
+		}
 
 		@media (min-width: 960px) {
 			padding: 0;
@@ -868,6 +916,27 @@ h3 {
 		user-select: none;
 	}
 
+
+	span.image {
+		display: flex !important;
+
+		a span {
+			text-decoration: underline;
+		}
+
+		@media (min-width: 720px) {
+			display: none !important;
+		}		
+	}
+
+	a.image {
+		display: none;
+
+		@media (min-width: 720px) {
+			display: flex;
+		}
+	}
+
 	.image {
 		position: relative;
 		display: flex;
@@ -876,44 +945,84 @@ h3 {
 		justify-content: center;
 		flex-shrink: 0;
 		width: 190px;
-		height: 330px;
-		margin-right: 20px;
+		height: 200px;
+		margin-bottom: 30px;
+
+		@media (min-width: 720px) {
+			height: 330px;
+			margin-right: 20px;
+			margin-bottom: 0;
+		}
 
 		&:before {
 			content: '';
 			position: absolute;
-			top: 70px;
+			top: 40px;
 			left: 0;
 			right: 0;
-			width: 190px;
-			height: 190px;
+			width: 140px;
+			height: 140px;
 			margin: auto;
 			background-color: #ef33a2;
 			border-radius: 50%;
 			z-index: -1;
+
+			@media (min-width: 720px) {
+				top: 70px;
+				width: 190px;
+				height: 190px;
+			}
 		}
 
 		img {
 			flex: 0 0 auto;
 			width: 100%;
-			max-width: 110px;
-			margin-bottom: 30px;
+			max-width: 80px;
+			margin-bottom: 10px;
+
+			@media (min-width: 720px) {
+				max-width: 110px;
+				margin-bottom: 30px;
+			}
 		}
 
 		span {
 			position: absolute;
 			left: 0;
 			right: 0;
-			bottom: 45px;
+			bottom: 0;
 			margin: auto;
 			font-size: 14px;
 			text-align: center;
+
+			@media (min-width: 720px) {
+				bottom: 45px;
+			}
 		}
 	}
 
 	.text {
+		text-align: center;
+
+		@media (min-width: 720px) {
+			text-align: left;
+		}
+
 		@media (min-width: 960px) {
 			width: 100%;
+		}
+
+		&>p,
+		&>span {
+			@media (max-width: 719px) {
+				padding: 0 20px;
+			}
+		}
+
+		h3 {
+			@media (max-width: 719px) {
+				font-size: 20px;
+			}
 		}
 
 		p {
@@ -1036,6 +1145,7 @@ h3 {
 		}
 
 		@media (min-width: 960px) {
+			padding: 35px;
 			padding-right: 0;
 		}
 	}
@@ -1048,6 +1158,7 @@ h3 {
 		margin-bottom: auto;
 
 		@media (min-width: 960px) {
+			padding: 0 35px;
 			padding-bottom: 35px;
 		}
 
@@ -1080,7 +1191,7 @@ h3 {
 			display: block;
 			// max-width: 300px;
 			font-size: 16px;
-			line-height: 24px;
+			line-height: 25px;
 
 			span {
 				display: block;
