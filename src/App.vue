@@ -22,7 +22,9 @@ export default {
 	},
 	watch: {
 		'$route'(to, from) {
-			this.$el.scrollTop = 0
+			if (to.name.toLowerCase() === 'result') {
+				this.$el.scrollTop = 0
+			}
 
 			ga('send', 'event', 'link', to.name.toLowerCase())
 		}
