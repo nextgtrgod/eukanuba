@@ -60,7 +60,13 @@
 						</span>
 						<span class="text">
 							Как популярные блогеры активно проводят время со своими питомцами
-							<a href="https://google.com">Узнать</a>
+							<a
+								href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/"
+								target="_blank"
+								@click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')"
+							>
+								Узнать
+							</a>
 						</span>
 					</li>
 				</ul>
