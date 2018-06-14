@@ -197,9 +197,7 @@
 			</div>
 		</div>
 		<div class="column image-wrap">
-			<!-- <img v-if="device === 'mobile'" src="../assets/images/man-mobile.jpg"> -->
-			<img v-if="selected.gender === 'мужской'" src="../assets/images/man.jpg">
-			<img v-else src="../assets/images/woman.jpg">
+			<img :src="humanImage">
 		</div>
 	</section>
 
@@ -405,6 +403,11 @@ export default {
 			// return this.man[gender][age][place][time]
 			return this.man['мужской'][age][place][time]
 		},
+		humanImage() {
+			return this.selected.gender === 'мужской'
+				? require(`@/assets/images/man-${this.device}.jpg`)
+				: require(`@/assets/images/woman-${this.device}.jpg`)
+		}
 	},
 
 }
@@ -867,16 +870,17 @@ h3 {
 		position: relative;
 
 		.nav {
-			display: none;
 			position: absolute;
-			top: 0;
-			bottom: 0;
+			top: 100px;
 			width: 20px;
 			height: 20px;
 			margin: auto;
 			opacity: .8;
+			z-index: 2;
 
-			@media (min-width: 960px) {
+			@media (min-width: 720px) {
+				top: 0;
+				bottom: 0;
 				display: block;
 			}
 
@@ -894,11 +898,27 @@ h3 {
 			}
 
 			&.prev {
-				left: -40px;
+				left: 20px;
+
+				@media (min-width: 720px) {
+					left: 10px;
+				}
+
+				@media (min-width: 960px) {
+					left: -40px;
+				}
 			}
 
 			&.next {
-				right: -30px;
+				right: 20px;
+
+				@media (min-width: 720px) {
+					right: 10px;
+				}
+
+				@media (min-width: 960px) {
+					right: -30px;
+				}
 			}
 		}
 	}
@@ -960,9 +980,13 @@ h3 {
 
 	ul.js_slides {
 		display: inline-flex;
-		align-items: stretch;
+		align-items: flex-start;
 		justify-content: center;
 		z-index: 1;
+
+		@media (min-width: 960px) {
+			align-items: stretch;
+		}
 	}
 
 	li.js_slide {
@@ -1344,7 +1368,7 @@ h3 {
 	}
 
 	.image-wrap {
-		padding-top: 74%;
+		padding-top: 75%;
 		order: -1;
 
 		@media (min-width: 960px) {
