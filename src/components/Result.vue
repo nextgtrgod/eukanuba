@@ -15,7 +15,7 @@
 		href="https://www.eukanuba.ru/product"
 		target="_blank"
 	>
-		<img src="../assets/images/logo-eukanuba.svg">	
+		<img src="../assets/images/logo-eukanuba.svg">
 	</a>
 
 	<section class="dog">
@@ -38,8 +38,8 @@
 			<div class="time">
 				<h2>Оптимальная<br>продолжительность<br>прогулки для вашей<br>собаки:</h2>
 				<div>
-					<h1>{{ time[selected.time] }}</h1>
-					<h2>минут</h2>
+					<h1 class="parallax" data-blocky="true">{{ time[selected.time] }}</h1>
+					<h2 class="parallax">минут</h2>
 				</div>
 			</div>
 
@@ -50,10 +50,10 @@
 						v-for="(action, index) in dogInfo.actions"
 						:key="index"
 					>
-						<span class="icon">
-							<img :src="getGameIcon(action)">
+						<span class="icon parallax" data-invertY="true">
+							<img :src="getGameIcon(action)" class="parallax">
 						</span>
-						<span class="caption">{{ games[action] }}</span>
+						<span class="caption parallax">{{ games[action] }}</span>
 					</li>
 				</ul>
 			</div>
@@ -178,8 +178,8 @@
 			</div>
 
 			<div class="exercises">
-				<span class="icon">
-					<img src="../assets/images/heaviness.svg">
+				<span class="icon parallax" data-inverty="true" data-speed="1">
+					<img src="../assets/images/heaviness.svg" class="parallax" data-speed="1">
 				</span>
 				<span class="text">
 					{{ manInfo.description }}					
@@ -188,11 +188,11 @@
 			</div>
 
 			<div class="water">
-				<span class="text">
+				<span class="text parallax" data-speed="1">
 					После окончания тренировки необходимо восполнить водный баланс негазированной минеральной водой.
 				</span>
-				<span class="icon">
-					<img src="../assets/images/bottle.svg">
+				<span class="icon parallax" data-inverty="true" data-speed="1">
+					<img src="../assets/images/bottle.svg" class="parallax" data-speed="1">
 				</span>
 			</div>
 		</div>
@@ -288,6 +288,9 @@ import games from '@/data/games'
 import food from '@/data/food'
 import places from '@/data/places'
 
+import getMousePos from '@/utils/getMousePos'
+import Parallax from '@/utils/parallax'
+
 export default {
 	name: 'ResultPage',
 	mixins: [
@@ -308,53 +311,8 @@ export default {
 		}
 	},
 	mounted() {
-		let carousel = this.$refs['carousel']
-
-		// handle dots
-        let dotCount = Object.keys(this.dogInfo.food).length
-        let dotContainer = this.$refs['js_dots']
-		let dotListItem = [...this.$refs['js_dots'].querySelectorAll('li')]
-
-        function handleDotEvent(e) {
-            if (e.type === 'before.lory.init') {
-            	dotListItem[0].classList.add('active');
-			}
-
-            if (e.type === 'after.lory.init') {
-				for (let i = 0; i < dotCount; i++) {
-					dotListItem[i].addEventListener('click', e => {
-						console.log(i)
-						dot_navigation_slider.slideTo(i)
-					})
-             	}
-			}
-
-            if (e.type === 'after.lory.slide') {
-				for (let i = 0; i < dotCount; i++) {
-					dotListItem[i].classList.remove('active');
-				}
-              	dotListItem[e.detail.currentSlide].classList.add('active');
-			}
-
-            if (e.type === 'on.lory.resize') {
-                for (let i = 0, len = dotListItem.length; i < len; i++) {
-                    dotListItem[i].classList.remove('active');
-                }
-                dotListItem[0].classList.add('active');
-            }
-		}
-
-        carousel.addEventListener('before.lory.init', handleDotEvent);
-        carousel.addEventListener('after.lory.init', handleDotEvent);
-        carousel.addEventListener('after.lory.slide', handleDotEvent);
-		carousel.addEventListener('on.lory.resize', handleDotEvent);
-
-		var dot_navigation_slider = lory(carousel, {
-            enableMouseEvents: true
-		})
-
-		Events.$on('slider-next', dot_navigation_slider.next)
-		Events.$on('slider-prev', dot_navigation_slider.prev)
+		this.initSlider()
+		this.initParallax()
 	},
 	methods: {
 		getMapLink: latLng => `https://www.google.com/maps/?q=${latLng[0]},${latLng[1]}`,
@@ -383,7 +341,72 @@ export default {
 			}
 		},
 
+		// parallax
+		initParallax() {
+			if (this.device === 'desktop') {
+				let items = [...document.querySelectorAll('.parallax')]
+
+				if (!items.length) return
+
+				this.animation = new Parallax()
+
+				items.map(item => this.animation.add(item))	
+
+				this.animation.start()
+			}			
+		},
+
 		// slider
+		initSlider() {
+			let carousel = this.$refs['carousel']
+
+			// handle dots
+			let dotCount = Object.keys(this.dogInfo.food).length
+			let dotContainer = this.$refs['js_dots']
+			let dotListItem = [...this.$refs['js_dots'].querySelectorAll('li')]
+
+			function handleDotEvent(e) {
+				if (e.type === 'before.lory.init') {
+					dotListItem[0].classList.add('active');
+				}
+
+				if (e.type === 'after.lory.init') {
+					for (let i = 0; i < dotCount; i++) {
+						dotListItem[i].addEventListener('click', e => {
+							console.log(i)
+							dot_navigation_slider.slideTo(i)
+						})
+					}
+				}
+
+				if (e.type === 'after.lory.slide') {
+					for (let i = 0; i < dotCount; i++) {
+						dotListItem[i].classList.remove('active');
+					}
+					dotListItem[e.detail.currentSlide].classList.add('active');
+				}
+
+				if (e.type === 'on.lory.resize') {
+					for (let i = 0, len = dotListItem.length; i < len; i++) {
+						dotListItem[i].classList.remove('active');
+					}
+					dotListItem[0].classList.add('active');
+				}
+			}
+
+			carousel.addEventListener('before.lory.init', handleDotEvent);
+			carousel.addEventListener('after.lory.init', handleDotEvent);
+			carousel.addEventListener('after.lory.slide', handleDotEvent);
+			carousel.addEventListener('on.lory.resize', handleDotEvent);
+
+			var dot_navigation_slider = lory(carousel, {
+				enableMouseEvents: true
+			})
+
+			Events.$on('slider-next', dot_navigation_slider.next)
+			Events.$on('slider-prev', dot_navigation_slider.prev)
+		},
+
 		prev: () => Events.$emit('slider-prev'),
 		next: () => Events.$emit('slider-next'),
 	},
@@ -409,7 +432,9 @@ export default {
 				: require(`@/assets/images/woman-${this.device}.jpg`)
 		}
 	},
-
+	beforeDestroy() {
+		this.animation.stop()
+	}
 }
 </script>
 
