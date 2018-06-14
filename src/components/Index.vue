@@ -20,12 +20,12 @@
 			href="https://www.eukanuba.ru/product/"
 			target="_blank"
 		>
-			<img src="../assets/images/logo-eukanuba.svg">	
+			<img src="../assets/images/logo-eukanuba.svg">
 		</a>
 
 		<img class="title" src="../assets/images/main-page-title.svg">
-		<p v-html="'Любую проглуку c&nbsp;собакой можно превратить в&nbsp;отличную тренировку. Ведь ваша собака&nbsp;&mdash; это ваш персональный тренер, который своей энергией и&nbsp;силой поможет вам тренироваться каждый день. А&nbsp;мы&nbsp;расскажем как и&nbsp;где это лучше всего делать, и&nbsp;как поддержать вашего питомца на&nbsp;пике формы!'"/>
-		
+		<p v-html="'Любую прогулку c&nbsp;собакой можно превратить в&nbsp;отличную тренировку. Ведь ваша собака&nbsp;&mdash; это ваш персональный тренер, который своей энергией и&nbsp;силой поможет вам тренироваться каждый день. А&nbsp;мы&nbsp;расскажем как и&nbsp;где это лучше всего делать, и&nbsp;как поддержать вашего питомца на&nbsp;пике формы!'"/>
+
 		<div v-if="device === 'mobile'" class="js_slider" ref="carousel">
 
 			<ul class="js_dots" ref="js_dots">
