@@ -1,4 +1,4 @@
-const baseUrl = 'http://eukanuba.afisha.ru'
+const baseUrl = 'https://coach.afisha.ru'
 
 export default {
 	computed: {
@@ -16,7 +16,7 @@ export default {
 			return `https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=${baseUrl}${this.route}`
 		},
 		shareTw() {
-			return `https://twitter.com/intent/tweet?url=${baseUrl}${this.route}&text=%D0%9E%D0%B1%D0%B5%D0%B4+%D0%B4%D0%BB%D0%B8%D0%BD%D0%BE%D0%B9+%D0%B2+100+%D0%BB%D0%B5%D1%82`
+			return `https://twitter.com/intent/tweet?url=${baseUrl}${this.route}&text=Как%20превратить%20прогулку%20с%20собакой%20в%20увлекательную%20тренеровку`
 		},
 		shareTg() {
 			return `https://t.me/share/url?url=${baseUrl}${this.route}`
