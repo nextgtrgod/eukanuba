@@ -390,12 +390,13 @@ ul {
 	}
 
 	h2 {
-		margin-top: 25px;
+		margin-top: 20px;
 		margin-bottom: 15px;
 		font-family: @font-gotham;
-		font-size: 26px;
+		font-size: 22px;
 		font-weight: 700;
-		line-height: 30px;
+		line-height: 28px;
+		text-align: center;
 
 		@media (min-width: 960px) {
 			font-size: 24px;
@@ -424,9 +425,9 @@ ul {
 	p {
 		margin: 0;
 		margin-bottom: 25px;
-		font-size: 24px;
+		font-size: 16px;
 		font-weight: 400;
-		line-height: 30px;
+		line-height: 21px;
 
 		@media (min-width: 960px) {
 			width: calc(~'100% - 40px');
@@ -471,7 +472,7 @@ ul {
 		}
 
 		a {
-			font-size: 18px;
+			font-size: 16px;
 			line-height: 24px;
 
 			@media (min-width: 960px) {

@@ -1519,13 +1519,15 @@ h3 {
 		p {
 			margin: 0;
 			margin-bottom: 25px;
-			font-size: 14px;
+			font-size: 16px;
 			font-weight: 400;
-			line-height: 20px;
+			line-height: 21px;
 
 			@media (min-width: 960px) {
 				width: calc(~'100% - 40px');
 				padding-right: 40px !important;
+				font-size: 14px;
+				line-height: 20px;
 			}
 		}
 
