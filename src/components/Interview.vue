@@ -15,7 +15,7 @@
 		href="https://www.eukanuba.ru/product/"
 		target="_blank"
 	>
-		<img src="../assets/images/logo-eukanuba.svg">	
+		<img src="../assets/images/logo-eukanuba.svg">
 	</a>
 	<div class="wrap">
 
@@ -265,7 +265,7 @@ a#logo-eukanuba {
 
 		@media (min-width: 960px) {
 			display: block;
-		} 
+		}
 	}
 }
 

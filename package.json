@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "es6-tween": "^5.1.0",
     "kuker-emitters": "^6.7.3",
     "lory.js": "^2.5.1",
