@@ -51,7 +51,7 @@
 						:key="index"
 					>
 						<span class="icon parallax" data-invertY="true">
-							<img :src="getGameIcon(action)" class="parallax">
+							<img :src="getGameIcon(action)" class="parallax" data-speed="1.2">
 						</span>
 						<span class="caption parallax">{{ games[action] }}</span>
 					</li>
@@ -178,8 +178,8 @@
 			</div>
 
 			<div class="exercises">
-				<span class="icon parallax" data-inverty="true" data-speed="1">
-					<img src="../assets/images/heaviness.svg" class="parallax" data-speed="1">
+				<span class="icon parallax" data-inverty="true" data-speed="1.2">
+					<img src="../assets/images/heaviness.svg" class="parallax" data-speed="1.4">
 				</span>
 				<span class="text">
 					{{ manInfo.description }}					
@@ -191,8 +191,8 @@
 				<span class="text parallax" data-speed="1">
 					После окончания тренировки необходимо восполнить водный баланс негазированной минеральной водой.
 				</span>
-				<span class="icon parallax" data-inverty="true" data-speed="1">
-					<img src="../assets/images/bottle.svg" class="parallax" data-speed="1">
+				<span class="icon parallax" data-inverty="true" data-speed="1.2">
+					<img src="../assets/images/bottle.svg" class="parallax" data-speed="1.4">
 				</span>
 			</div>
 		</div>
