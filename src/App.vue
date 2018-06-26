@@ -11,8 +11,6 @@ import Events from './events'
 export default {
 	name: 'App',
 	created() {
-		ga('send', 'event', 'page', 'loaded')
-
 		window.addEventListener('resize', this.checkDevice)
 	},
 	methods: {

@@ -167,7 +167,6 @@ export default {
             if (e.type === 'after.lory.init') {
 				for (let i = 0; i < dotCount; i++) {
 					dotListItem[i].addEventListener('click', e => {
-						console.log(i)
 						dot_navigation_slider.slideTo(i)
 					})
              	}
