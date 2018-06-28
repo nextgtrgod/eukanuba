@@ -23,10 +23,24 @@
 			<img src="../assets/images/logo-eukanuba.svg">
 		</a>
 
-		<img class="title" src="../assets/images/main-page-title.svg">
-		<p v-html="'Любую прогулку c&nbsp;собакой можно превратить в&nbsp;отличную тренировку. Ведь ваша собака&nbsp;&mdash; это ваш персональный тренер, который своей энергией и&nbsp;силой поможет вам тренироваться каждый день. А&nbsp;мы&nbsp;расскажем как и&nbsp;где это лучше всего делать, и&nbsp;как поддержать вашего питомца на&nbsp;пике формы!'"/>
+		<div class="top-links">
+			<router-link to="/interview">Программа тренировок</router-link>
+			<a
+				href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/"
+				target="_blank"
+				@click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')">
+				Блогеры
+			</a>
+			<router-link to="/places">Локации</router-link>
+		</div>
 
-		<div v-if="device === 'mobile'" class="js_slider" ref="carousel">
+		<img class="title" src="../assets/images/main-page-title.svg">
+		<p v-if="device === 'desktop'" v-html="'Любую прогулку c&nbsp;собакой можно превратить в&nbsp;отличную тренировку.<br>Ведь ваша собака&nbsp;&mdash; это ваш персональный тренер, который своей<br>энергией и&nbsp;силой поможет вам тренироваться каждый день.<br>А&nbsp;мы&nbsp;расскажем как и&nbsp;где это лучше всего делать, и&nbsp;как поддержать вашего питомца на&nbsp;пике формы!'"/>
+		<p v-else v-html="'Любую прогулку c&nbsp;собакой можно превратить в&nbsp;отличную тренировку. Ведь ваша собака&nbsp;&mdash; это ваш персональный тренер, который своей энергией и&nbsp;силой поможет вам тренироваться каждый день. А&nbsp;мы&nbsp;расскажем как и&nbsp;где это лучше всего делать, и&nbsp;как поддержать вашего питомца на&nbsp;пике формы!'"/>
+
+		<router-link to="/interview" class="such-beautiful-button">Подобрать программу</router-link>
+
+		<!-- <div v-if="device === 'mobile'" class="js_slider" ref="carousel">
 
 			<ul class="js_dots" ref="js_dots">
 				<li/>
@@ -71,9 +85,9 @@
 					</li>
 				</ul>
 			</div>
-		</div>
+		</div> -->
 
-		<div v-if="device === 'desktop'" class="cards">
+		<!-- <div v-if="device === 'desktop'" class="cards">
 			<router-link to="/interview">
 				<span class="img-wrap">
 					<img src="../assets/images/card-2.svg">
@@ -95,7 +109,7 @@
 				<span class="text">Интересно: как популярные<br>блогеры активно проводят<br>время со своими питомцами</span>
 				<span class="link">Узнать</span>
 			</a>
-		</div>
+		</div> -->
 
 		<button class="toggle-shares" @click="() => sharesVisible = !sharesVisible">
 			<svg viewBox="0 0 26 26">
@@ -149,53 +163,53 @@ export default {
 			sharesVisible: false,
 		}
 	},
-	mounted() {
-		if (this.device === 'desktop') return
+	// mounted() {
+	// 	if (this.device === 'desktop') return
 
-		let carousel = this.$refs['carousel']
+	// 	let carousel = this.$refs['carousel']
 
-		// handle dots
-        let dotCount = 3
-        let dotContainer = this.$refs['js_dots']
-		let dotListItem = [...this.$refs['js_dots'].querySelectorAll('li')]
+	// 	// handle dots
+    //     let dotCount = 3
+    //     let dotContainer = this.$refs['js_dots']
+	// 	let dotListItem = [...this.$refs['js_dots'].querySelectorAll('li')]
 
-        function handleDotEvent(e) {
-            if (e.type === 'before.lory.init') {
-            	dotListItem[0].classList.add('active');
-			}
+    //     function handleDotEvent(e) {
+    //         if (e.type === 'before.lory.init') {
+    //         	dotListItem[0].classList.add('active');
+	// 		}
 
-            if (e.type === 'after.lory.init') {
-				for (let i = 0; i < dotCount; i++) {
-					dotListItem[i].addEventListener('click', e => {
-						dot_navigation_slider.slideTo(i)
-					})
-             	}
-			}
+    //         if (e.type === 'after.lory.init') {
+	// 			for (let i = 0; i < dotCount; i++) {
+	// 				dotListItem[i].addEventListener('click', e => {
+	// 					dot_navigation_slider.slideTo(i)
+	// 				})
+    //          	}
+	// 		}
 
-            if (e.type === 'after.lory.slide') {
-				for (let i = 0; i < dotCount; i++) {
-					dotListItem[i].classList.remove('active');
-				}
-              	dotListItem[e.detail.currentSlide].classList.add('active');
-			}
+    //         if (e.type === 'after.lory.slide') {
+	// 			for (let i = 0; i < dotCount; i++) {
+	// 				dotListItem[i].classList.remove('active');
+	// 			}
+    //           	dotListItem[e.detail.currentSlide].classList.add('active');
+	// 		}
 
-            if (e.type === 'on.lory.resize') {
-                for (let i = 0, len = dotListItem.length; i < len; i++) {
-                    dotListItem[i].classList.remove('active');
-                }
-                dotListItem[0].classList.add('active');
-            }
-		}
+    //         if (e.type === 'on.lory.resize') {
+    //             for (let i = 0, len = dotListItem.length; i < len; i++) {
+    //                 dotListItem[i].classList.remove('active');
+    //             }
+    //             dotListItem[0].classList.add('active');
+    //         }
+	// 	}
 
-        carousel.addEventListener('before.lory.init', handleDotEvent);
-        carousel.addEventListener('after.lory.init', handleDotEvent);
-        carousel.addEventListener('after.lory.slide', handleDotEvent);
-		carousel.addEventListener('on.lory.resize', handleDotEvent);
+    //     carousel.addEventListener('before.lory.init', handleDotEvent);
+    //     carousel.addEventListener('after.lory.init', handleDotEvent);
+    //     carousel.addEventListener('after.lory.slide', handleDotEvent);
+	// 	carousel.addEventListener('on.lory.resize', handleDotEvent);
 
-		var dot_navigation_slider = lory(carousel, {
-            enableMouseEvents: true
-		})
-	},
+	// 	var dot_navigation_slider = lory(carousel, {
+    //         enableMouseEvents: true
+	// 	})
+	// },
 }
 </script>
 
@@ -252,7 +266,7 @@ main {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background-color: fade(@color-main, 75%);
+		background-color: fade(#000, 70%);
 		z-index: 1;
 	}
 
@@ -324,7 +338,7 @@ p {
 	position: relative;
 	max-width: 685px;
 	margin-top: 40px;
-	margin-bottom: 0;
+	margin-bottom: 45px;
 	padding: 0 20px;
 	text-align: left;
 	font-family: @font-gotham;
@@ -333,16 +347,19 @@ p {
 	z-index: 2;
 
 	@media (min-width: 960px) {
-		margin-bottom: 30px;
+		margin-bottom: 45px;
 		text-align: center;
 	}
 }
 
 img.title {
 	position: relative;
-	margin-top: 60px;
 	max-width: 540px;
 	z-index: 2;
+
+	// @media (min-width: 480px) {
+	// 	margin-top: 20px;
+	// }
 
 	@media (min-width: 960px) {
 		margin-top: 90px;
@@ -540,7 +557,7 @@ h2, span {
 	display: none;
 	position: absolute;
 	font-family: @font-roboto;
-	font-size: 25px;
+	font-size: 30px;
 	line-height: 1;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -549,13 +566,80 @@ h2, span {
 	@media (min-width: 600px) {
 		display: block;
 		right: 20px;
-		bottom: 20px;
+		bottom: 17px;
 	}
 
 	@media (min-width: 960px) {
 		right: 30px;
-		bottom: 25px;
+		bottom: 27px;
 	}
 }
+
+
+.such-beautiful-button {
+	position: relative;
+	width: 250px;
+	height: 48px;
+	margin-bottom: 75px;
+	line-height: 47px;
+	background-image: url('../assets/images/button-shape.svg');
+	background-size: 100% 100%;
+	box-shadow: 0 8px 10px fade(#000, .2);
+	font-size: 14px;
+	z-index: 9001;
+
+	@media (min-width: 960px) {
+		width: 285px;
+		font-size: 16px;
+	}
+}
+
+
+.top-links {
+	position: relative;
+	left: 0;
+	right: 0;
+	width: 100%;
+	margin: 30px auto;
+	margin-bottom: 0;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	font-size: 14px;
+	z-index: 9001;
+	box-sizing: border-box;
+
+	@media (min-width: 480px) {
+		margin-top: 50px;
+		margin-bottom: 30px;
+		flex-direction: row;
+		width: 360px;
+		padding: 0;
+	}
+
+	@media (min-width: 960px) {
+		position: absolute;
+		top: 30px;
+		margin: 0 auto;
+	}
+
+	a {
+		margin: 10px 0;
+		border-bottom: 1px solid transparent;
+		transition: all .2s;
+
+		@media (min-width: 960px) {
+			margin: 0;
+		}
+
+		&:hover {
+			border-bottom: 1px solid #FFF;
+		}
+	}
+}
+
 
 </style>
