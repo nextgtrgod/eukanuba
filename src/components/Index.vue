@@ -585,9 +585,9 @@ h2, span {
 .such-beautiful-button {
 	position: relative;
 	width: 250px;
-	height: 48px;
+	height: 42px;
 	margin-bottom: 75px;
-	line-height: 47px;
+	line-height: 44px;
 	background-image: url('../assets/images/button-shape.svg');
 	background-size: 100% 100%;
 	box-shadow: 0 8px 10px fade(#000, .2);
@@ -596,6 +596,8 @@ h2, span {
 
 	@media (min-width: 960px) {
 		width: 285px;
+		height: 48px;
+		line-height: 47px;
 		font-size: 16px;
 	}
 }

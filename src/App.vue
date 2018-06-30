@@ -1,15 +1,20 @@
 <template>
 	<div id='app'>
 		<router-view/>
+		<modal/>
 	</div>
 </template>
 
 
 <script>
 import Events from './events'
+import Modal from '@/components/Modal'
 
 export default {
 	name: 'App',
+	components: {
+		Modal,
+	},
 	created() {
 		window.addEventListener('resize', this.checkDevice)
 	},
@@ -22,6 +27,7 @@ export default {
 		'$route'(to, from) {
 			if (to.name.toLowerCase() === 'result') {
 				this.$el.scrollTop = 0
+				Events.$emit('modal-open')
 			}
 
 			ga('send', 'event', 'link', to.name.toLowerCase())

@@ -319,6 +319,8 @@ export default {
 	mounted() {
 		this.initSlider()
 		this.initParallax()
+
+		Events.$emit('modal-open')
 	},
 	methods: {
 		getMapLink: latLng => `https://www.google.com/maps/?q=${latLng[0]},${latLng[1]}`,
