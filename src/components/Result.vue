@@ -126,7 +126,7 @@
 		<h2>Интересные рассказы<br>и советы популярных блогеров</h2>
 		<ul>
 			<li>
-				<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')" target="_blank">
+				<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba')" target="_blank">
 					<img src="../assets/images/bloggers/1.png">
 					<span>
 						Иван Милехин
@@ -135,7 +135,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')" target="_blank">
+				<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba')" target="_blank">
 					<img src="../assets/images/bloggers/2.png">
 					<span>
 						Анна Екомасова
@@ -149,7 +149,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')" target="_blank">
+				<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba')" target="_blank">
 					<img src="../assets/images/bloggers/3.png">
 					<span>
 						Максим Журило
@@ -158,7 +158,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')" target="_blank">
+				<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba')" target="_blank">
 					<img src="../assets/images/bloggers/4.png">
 					<span>
 						Дмитрий Игнатов
@@ -320,7 +320,18 @@ export default {
 		this.initSlider()
 		this.initParallax()
 
-		Events.$emit('modal-open')
+		let app = document.getElementById('app')
+		let modalVisible = false
+
+		window.addEventListener('mousewheel', e => {
+
+			if (modalVisible) return
+
+			if (app.scrollTop >= window.innerHeight) {
+				modalVisible = true
+				Events.$emit('modal-open')
+			}
+		})
 	},
 	methods: {
 		getMapLink: latLng => `https://www.google.com/maps/?q=${latLng[0]},${latLng[1]}`,

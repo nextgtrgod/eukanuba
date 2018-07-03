@@ -88,7 +88,7 @@ export default {
 	justify-content: center;
 	background-color: fade(#000, 50%);
 	opacity: 0;
-	transition: opacity .2s;
+	transition: opacity .3s;
 	pointer-events: none;
 	text-align: center;
 

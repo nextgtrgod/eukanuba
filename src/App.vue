@@ -27,7 +27,6 @@ export default {
 		'$route'(to, from) {
 			if (to.name.toLowerCase() === 'result') {
 				this.$el.scrollTop = 0
-				Events.$emit('modal-open')
 			}
 
 			ga('send', 'event', 'link', to.name.toLowerCase())

@@ -26,9 +26,9 @@
 		<div class="top-links">
 			<router-link to="/interview">Программа тренировок</router-link>
 			<a
-				href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/"
+				href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba"
 				target="_blank"
-				@click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')">
+				@click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba')">
 				Блогеры
 			</a>
 			<router-link to="/places">Локации</router-link>
@@ -75,9 +75,9 @@
 						<span class="text">
 							Как популярные блогеры активно проводят время со своими питомцами
 							<a
-								href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/"
+								href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba"
 								target="_blank"
-								@click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')"
+								@click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba')"
 							>
 								Узнать
 							</a>
@@ -102,7 +102,7 @@
 				<span class="text">Выберите места для<br>энергичных прогулок</span>
 				<span class="link">Выбрать</span>
 			</router-link>
-			<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/" target="_blank" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')">
+			<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba" target="_blank" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba')">
 				<span class="img-wrap">
 					<img src="../assets/images/card-4.svg">
 				</span>
