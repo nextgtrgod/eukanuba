@@ -314,26 +314,28 @@ export default {
 			games,
 			places,
 			sharesVisible: false,
+			modalVisible: false,
 		}
 	},
 	mounted() {
 		this.initSlider()
 		this.initParallax()
 
-		let app = document.getElementById('app')
-		let modalVisible = false
-
-		window.addEventListener('mousewheel', e => {
-
-			if (modalVisible) return
-
-			if (app.scrollTop >= window.innerHeight) {
-				modalVisible = true
-				Events.$emit('modal-open')
-			}
-		})
+		this.app = document.getElementById('app')
+		this.handleScroll()
 	},
 	methods: {
+		handleScroll() {
+
+			if (this.modalVisible) return
+
+			if (this.app.scrollTop >= window.innerHeight) {
+				this.modalVisible = true
+				Events.$emit('modal-open')
+			}
+
+			requestAnimationFrame(this.handleScroll)
+		},
 		getMapLink: latLng => `https://www.google.com/maps/?q=${latLng[0]},${latLng[1]}`,
 		getPlaceImage: id => {
 			try {
