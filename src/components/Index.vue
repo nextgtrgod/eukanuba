@@ -75,9 +75,9 @@
 						<span class="text">
 							Как популярные блогеры активно проводят время со своими питомцами
 							<a
-								href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/"
+								href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba"
 								target="_blank"
-								@click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')"
+								@click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba')"
 							>
 								Узнать
 							</a>
@@ -102,7 +102,7 @@
 				<span class="text">Выберите места для<br>энергичных прогулок</span>
 				<span class="link">Выбрать</span>
 			</router-link>
-			<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/" target="_blank" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/')">
+			<a href="https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba" target="_blank" @click="linkClick('https://daily.afisha.ru/cities/9179-hochetsya-poyti-vmeste-v-basseyn-vladelcy-sobak-o-sovmestnoy-aktivnoy-zhizni-v-gorode/?utm_source=lending&utm_medium=result&utm_campaign=eukanuba')">
 				<span class="img-wrap">
 					<img src="../assets/images/card-4.svg">
 				</span>
@@ -585,9 +585,9 @@ h2, span {
 .such-beautiful-button {
 	position: relative;
 	width: 250px;
-	height: 48px;
+	height: 42px;
 	margin-bottom: 75px;
-	line-height: 47px;
+	line-height: 44px;
 	background-image: url('../assets/images/button-shape.svg');
 	background-size: 100% 100%;
 	box-shadow: 0 8px 10px fade(#000, .2);
@@ -596,6 +596,8 @@ h2, span {
 
 	@media (min-width: 960px) {
 		width: 285px;
+		height: 48px;
+		line-height: 47px;
 		font-size: 16px;
 	}
 }

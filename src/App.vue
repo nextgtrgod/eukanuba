@@ -1,15 +1,20 @@
 <template>
 	<div id='app'>
 		<router-view/>
+		<modal/>
 	</div>
 </template>
 
 
 <script>
 import Events from './events'
+import Modal from '@/components/Modal'
 
 export default {
 	name: 'App',
+	components: {
+		Modal,
+	},
 	created() {
 		window.addEventListener('resize', this.checkDevice)
 	},
