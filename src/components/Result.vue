@@ -179,7 +179,8 @@
 
 			<div class="exercises">
 				<span class="icon parallax" data-inverty="true" data-speed="1.2">
-					<img src="../assets/images/heaviness.svg" class="parallax" data-speed="1.4">
+					<!-- <img src="../assets/images/heaviness.svg" class="parallax" data-speed="1.4"> -->
+					<img src="../assets/images/dummy.svg">
 				</span>
 				<span class="text">
 					{{ manInfo.description }}			
@@ -192,7 +193,8 @@
 					После окончания тренировки необходимо восполнить водный баланс негазированной минеральной водой.
 				</span>
 				<span class="icon parallax" data-inverty="true" data-speed="1.2">
-					<img src="../assets/images/bottle.svg" class="parallax" data-speed="1.4">
+					<!-- <img src="../assets/images/bottle.svg" class="parallax" data-speed="1.4"> -->
+					<img src="../assets/images/dummy.svg">
 				</span>
 			</div>
 		</div>
@@ -347,7 +349,8 @@ export default {
 		},
 		getGameIcon(name) {
 			try {
-				return require(`@/assets/images/games/${name}.svg`)
+				// return require(`@/assets/images/games/${name}.svg`)
+				return require(`@/assets/images/games/dummy.svg`)
 			} catch (e) {
 				console.log(e)
 				return require (`@/assets/images/games/dog.svg`)
@@ -1216,7 +1219,7 @@ h3 {
 .bloggers {
 	// height: 200px;
 	background-color: #052046;
-	background-image: url('../assets/images/bloggers/bg.jpg');
+	// background-image: url('../assets/images/bloggers/bg.jpg');
 	background-size: cover;
 	text-align: center;
 	color: #FFF;
