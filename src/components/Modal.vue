@@ -117,7 +117,7 @@ export default {
 	padding: 50px 20px;
 	padding-top: 50px;
 	background-color: @color-main;
-	background-image: url('../assets/images/modal-bg.jpg');
+	// background-image: url('../assets/images/modal-bg.jpg');
 	background-size: cover;
 	background-position: center;
 	color: #FFF;
